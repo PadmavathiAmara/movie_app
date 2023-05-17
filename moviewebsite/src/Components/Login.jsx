@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userDetailsStore } from "../App";
 
@@ -9,32 +9,38 @@ export const Login = () => {
 
     const setAccUser = userDetailsStore(state => state.updateAccUser);
     const setSuccess = userDetailsStore(state => state.updateSuccess);
-    // const setSuc = userDetailsStore(state => state.success);
-    
-    const onLoginClick = () => {
-        let storedArr = JSON.parse(localStorage.getItem("CurrentUser"));
-        // console.log(storedArr);
-        let foundUser = storedArr.find((user)=>{
-            if(user.Username==loginUn){
-                if(user.Password==loginPw){
-                    navigate('/');
-                    setSuccess(true);
-                    console.log("login success");
 
+    const onLoginClick = () => {
+    
+        let adminArr = JSON.parse(localStorage.getItem("Admin"));
+        if(adminArr.Username == loginUn && adminArr.Password == loginPw){
+            navigate('/');
+            setSuccess("Padmavathi");
+        }
+
+        else{
+            let storedArr = JSON.parse(localStorage.getItem("CurrentUser"));
+        let foundUser = storedArr.find((user) => {
+            if (user.Username == loginUn) {
+                if (user.Password == loginPw) {
+                    navigate('/');
+                    setSuccess(user.Username);
+                    console.log("login success");
                     return user;
                 }
             }
         });
         setAccUser(foundUser);
-      
+        }
+        
     }
 
-    return(
-        <>
-        Username: <input onChange={(e) => setLoginUn(e.target.value)}/>
-        Password: <input onChange={(e) => setLoginPw(e.target.value)}/>
-        <button onClick={()=>onLoginClick()}>Submit</button>
-        </>
+    return (
+        <main>
+            Username: <input onChange={(e) => setLoginUn(e.target.value)} />
+            Password: <input type="password" onChange={(e) => setLoginPw(e.target.value)} />
+            <button onClick={() => onLoginClick()}>Submit</button>
+        </main>
     )
 }
 
