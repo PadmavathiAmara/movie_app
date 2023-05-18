@@ -10,6 +10,7 @@ export const Home = () => {
 
     const onLogoutClick = () => {
         setStatus("false");
+        localStorage.removeItem("CurrentUser");
     }
 
     const onLoading = () => {
@@ -19,9 +20,19 @@ export const Home = () => {
         }
         localStorage.setItem("Admin", JSON.stringify(adminData));
     }
+    const onRefresh = () => {
+        if(Status == "false"){
+            let getcurrentUserData = localStorage.getItem("CurrentUser");
+        if(getcurrentUserData){
+            localStorage.removeItem("CurrentUser");
+        }
+        }
+        
+    }
 
     useEffect(() => {
         onLoading();
+        onRefresh();
     }, [])
 
     return (

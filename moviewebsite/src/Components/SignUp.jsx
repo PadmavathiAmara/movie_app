@@ -12,24 +12,23 @@ export const SignUp = () => {
   const [phnNo, setPhnNo] = useState("");
   const [gender, setGender] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-  let available = false;
 
   const onSignUpClick = (e) => {
     e.preventDefault();
     if (un !== "" && email !== "" && pw !== "" && phnNo !== "" && gender !== "" && checkBox !== false && confirmPw !== "") {
-      let getOldData = localStorage.getItem("CurrentUser");
+      let getOldData = localStorage.getItem("UsersList");
       //localstorage is empty, add data
       if (!getOldData) {
-        const currentUser = {
+        const User = {
           Username: un,
           EmailId: email,
           Password: pw,
           MobileNo: phnNo,
           Gender: gender,
         };
-        setUserArr(currentUser);
+        setUserArr(User);
         navigate('/Login');
-        appendObject(currentUser);
+    localStorage.setItem('UsersList', JSON.stringify([User]));
       }
       else {
         //localstorage is not empty, check if username exists
@@ -38,27 +37,21 @@ export const SignUp = () => {
         }
         else {
           //username doesnt exist, add data
-          const currentUser = {
+          const User = {
             Username: un,
             EmailId: email,
             Password: pw,
             MobileNo: phnNo,
             Gender: gender,
           };
-          setUserArr(currentUser);
+          setUserArr(User);
           navigate('/Login');
-          appendObject(currentUser);
+          const storedArr = JSON.parse(localStorage.getItem("UsersList")) || [];
+    storedArr.push(User);
+    localStorage.setItem('UsersList', JSON.stringify(storedArr));
         }
-
       }
-
     }
-  }
-
-  const appendObject = (newUser) => {
-    const storedArr = JSON.parse(localStorage.getItem("CurrentUser")) || [];
-    storedArr.push(newUser);
-    localStorage.setItem('CurrentUser', JSON.stringify(storedArr));
   }
 
   const userarr = userDetailsStore(state => state.users)

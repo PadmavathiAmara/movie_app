@@ -4,9 +4,8 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import AdminPortal from './Components/AdminPortal';
-import Favourites from './Components/Favourites';
-// import { useEffect, useState } from 'react';
 import { create } from 'zustand';
+import MoviesPage from './Components/MoviesPage';
 
 export const userDetailsStore = create((set) => (
   {
@@ -25,10 +24,11 @@ export const userDetailsStore = create((set) => (
       accUser: [val]
     })),
 
-    adminStatus: "false",
-    updateAdminStatus: (p) => set(()=>({
-      adminStatus: p
+    movies: {},
+    updateMovies: (mov) => set(()=>({
+     movies: {mov}
     }))
+   
   }
 ))
 
@@ -40,8 +40,8 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/SignUp' element={<SignUp />} />
-        <Route path='/AdminPortal' element={<AdminPortal/>} />
-        <Route path='/Favourites' element={<Favourites />} />
+        <Route path='/AdminPortal' element={<AdminPortal />} />
+        <Route path='/Moviespage' element={<MoviesPage />} />
       </Routes>
     </div>
   );
