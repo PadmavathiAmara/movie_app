@@ -6,6 +6,7 @@ import SignUp from './Components/SignUp';
 import AdminPortal from './Components/AdminPortal';
 import { create } from 'zustand';
 import MoviesPage from './Components/MoviesPage';
+import UpdateMovies from './Components/UpdateMovies';
 
 export const userDetailsStore = create((set) => (
   {
@@ -42,6 +43,7 @@ const App = () => {
         <Route path='/SignUp' element={<SignUp />} />
         <Route path='/AdminPortal' element={<AdminPortal />} />
         <Route path='/Moviespage' element={<MoviesPage />} />
+        <Route path='/UpdateMovies' element={<UpdateMovies/>} />
       </Routes>
     </div>
   );

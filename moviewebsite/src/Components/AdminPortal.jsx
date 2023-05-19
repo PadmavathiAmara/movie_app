@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import './AdminPortal.scss';
 import { useNavigate } from 'react-router-dom';
-import { userDetailsStore } from '../App';
 
 export const AdminPortal = () => {
 
     const navigate = useNavigate();
-    const showMovies = userDetailsStore(state => state.movies);
 
-    const [movies, setMovies] = useState({})
+    const [movies, setMovies] = useState({
+        isDeleted: false,
+    })
+
+    const [idToAccess, setIdToAccess] = useState("");
+    const [flagVal, setFlagVal] = useState("");
 
      const onAddMovieClick = () => {
         let getOldMovies = JSON.parse(localStorage.getItem("MoviesList"));
@@ -26,6 +29,8 @@ console.log(movies)
     return(
         <div id='movieAdding'>
          <div id='movie'>
+            Movie Id: <input type="text" value={movies.Id} name='Id' 
+            onChange={(e)=>setMovies({...movies, [e.target.name]: e.target.value})}/>
             Movie Title: <input type="text" value={movies.Title} name='Title' 
             onChange={(e)=>setMovies({...movies, [e.target.name]: e.target.value})}/>
             Movie Genre: <input type="text" name='Genre' 
@@ -47,10 +52,10 @@ console.log(movies)
             />
             Available dates: 
             <br/>
-            From: <input type="date" name='date.from'
+            From: <input type="date" name='date_from'
             onChange={(e)=>setMovies({...movies, [[e.target.name]]: e.target.value})}
             />
-            To: <input type="date" name='date.to'
+            To: <input type="date" name='date_to'
             onChange={(e)=>setMovies({...movies, [[e.target.name]]: e.target.value})}
             />
         </div>
@@ -58,6 +63,8 @@ console.log(movies)
         <div>
             <button onClick={()=>navigate('/MoviesPage')}>Go to moviespage</button>
         </div>
+        <input onChange={(e)=>setIdToAccess(e.target.value)}/>
+        <input onChange={(e)=>setFlagVal(e.target.value)}/>
         </div>  
         
     )

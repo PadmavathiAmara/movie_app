@@ -1,4 +1,4 @@
-import './SignUp.css';
+import './SignUp.scss';
 import { userDetailsStore } from '../App';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -130,18 +130,26 @@ export const SignUp = () => {
   }, [un, pw, email, confirmPw, phnNo, userarr, gender, checkBox])
 
   return (
-    <div >
-      <form className="signUpComponent" onSubmit={onSignUpClick}>
+    <div className='signup'>
+      <main>
+        <h1>SignUp</h1>
+      <form onSubmit={onSignUpClick}>
         Username: <input onChange={(e) => setUn(e.target.value)} onBlur={() => validateUsername()} required />
         Email Id: <input type='email' onChange={(e) => setEmail(e.target.value)} onBlur={() => validateEmailId()} required />
         Password: <input type='password' onChange={(e) => setPw(e.target.value)} onBlur={() => validatePassword()} required />
         Confirm Password: <input type='password' onChange={(e) => setConfirmPw(e.target.value)} onBlur={() => validateConfirmPassword()} required />
         Mobile: <input onChange={(e) => setPhnNo(e.target.value)} onBlur={() => validateMobileNo()} required />
+        <section id='gen'>
         Gender: <input type="radio" name="gender" value="male" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /> Male
         <input type="radio" name="gender" value="female" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /> Female
-        <input type='checkbox' onChange={(e) => setCheckBox(e.target.checked)} required /> I agree to the terms and conditions!
+        </section>
+       <section>
+       <input type='checkbox' id='check' onChange={(e) => setCheckBox(e.target.checked)} required /> I agree to the terms and conditions!
+       </section>
         <button type='submit' >Submit</button>
       </form>
+      </main>
+      
     </div>
   )
 }

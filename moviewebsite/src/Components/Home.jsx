@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 export const Home = () => {
     const navigate = useNavigate();
+
     const Status = userDetailsStore(state => state.success);
     const setStatus = userDetailsStore(state => state.updateSuccess);
 
@@ -21,13 +22,32 @@ export const Home = () => {
         localStorage.setItem("Admin", JSON.stringify(adminData));
     }
     const onRefresh = () => {
+        // 
+        // if(getcurrentUserData){
+        //     
+        // }
+        // let getcurrentUserData = JSON.parse(localStorage.getItem("CurrentUser"));
+        // if(getcurrentUserData.Username === "Padmavathi"){
+        //     if(Status == "false" || Status == 'Padmavathi'){
+        //         return true;
+        //     }
+        // }else{
+        //     if(Status == "false"){
+        //         localStorage.removeItem("CurrentUser");
+        //         }
+        // }
         if(Status == "false"){
             let getcurrentUserData = localStorage.getItem("CurrentUser");
-        if(getcurrentUserData){
-            localStorage.removeItem("CurrentUser");
+            console.log(getcurrentUserData)
+            if(getcurrentUserData){
+                let getData = JSON.parse(localStorage.getItem("CurrentUser"));
+        if(getData.Username === "Padmavathi"){
+            setStatus("Padmavathi")
+        }else{
+                localStorage.removeItem("CurrentUser");
         }
+            }
         }
-        
     }
 
     useEffect(() => {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userDetailsStore } from "../App";
+import './Login.scss';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -46,9 +47,13 @@ export const Login = () => {
     return (
         <div className="Login">
             <main>
-         Username: <input onChange={(e) => setLoginUn(e.target.value)} />
+                <h1>Login</h1>
+                <form>
+                Username: <input onChange={(e) => setLoginUn(e.target.value)} />
             Password: <input type="password" onChange={(e) => setLoginPw(e.target.value)} />
             <button onClick={() => onLoginClick()}>Submit</button>
+
+                </form>
             </main>
            
         </div>

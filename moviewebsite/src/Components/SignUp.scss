@@ -1,4 +1,4 @@
-.Login{
+.signup {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -14,19 +14,26 @@
 
         h1{
             text-align: center;
-            padding: 2rem;
+            padding: 1rem;
         }
 
-        form{
+        form {
+            width: 20rem;
+            height: 22rem;
             display: flex;
-    flex-direction: column;
-    height: 14rem;
-    width: 17rem;
-    position: absolute;
-    top: 13rem;
-    left: 10rem;
-    gap: 1.5rem;
-        }
-    }
+            flex-direction: column;
+            position: absolute;
+            top: 4rem;
+            left: 9rem;
+            gap: 1rem;
 
+            #check{
+                
+    height: 16px;
+    width: 3rem;
+
+            }
+        }
+
+    }
 }
