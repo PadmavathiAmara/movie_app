@@ -2,6 +2,12 @@ import './SignUp.scss';
 import { userDetailsStore } from '../App';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Person2Icon from '@mui/icons-material/Person2';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import HttpsIcon from '@mui/icons-material/Https';
+import CallIcon from '@mui/icons-material/Call';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -132,22 +138,45 @@ export const SignUp = () => {
   return (
     <div className='signup'>
       <main>
-        <h1>SignUp</h1>
       <form onSubmit={onSignUpClick}>
-        Username: <input onChange={(e) => setUn(e.target.value)} onBlur={() => validateUsername()} required />
-        Email Id: <input type='email' onChange={(e) => setEmail(e.target.value)} onBlur={() => validateEmailId()} required />
-        Password: <input type='password' onChange={(e) => setPw(e.target.value)} onBlur={() => validatePassword()} required />
-        Confirm Password: <input type='password' onChange={(e) => setConfirmPw(e.target.value)} onBlur={() => validateConfirmPassword()} required />
-        Mobile: <input onChange={(e) => setPhnNo(e.target.value)} onBlur={() => validateMobileNo()} required />
-        <section id='gen'>
-        Gender: <input type="radio" name="gender" value="male" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /> Male
-        <input type="radio" name="gender" value="female" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /> Female
-        </section>
-       <section>
-       <input type='checkbox' id='check' onChange={(e) => setCheckBox(e.target.checked)} required /> I agree to the terms and conditions!
-       </section>
-        <button type='submit' >Submit</button>
+      <h1>SignUp</h1>
+
+        <span>
+       <Person2Icon/><input onChange={(e) => setUn(e.target.value)} onBlur={() => validateUsername()} placeholder='Enter your fullname!' required />
+        </span>
+        <span>
+        <EmailRoundedIcon/><input type='email' onChange={(e) => setEmail(e.target.value)} onBlur={() => validateEmailId()} placeholder='Enter your Email Id!' required />
+        </span>
+        <span>
+        <HttpsIcon/><input type='password' onChange={(e) => setPw(e.target.value)} onBlur={() => validatePassword()} placeholder='Enter your password!' required />
+        </span>
+        <span>
+        <HttpsIcon/><input type='password' onChange={(e) => setConfirmPw(e.target.value)} onBlur={() => validateConfirmPassword()} placeholder='Confirm password!' required />
+        </span>
+        <span>
+        <CallIcon/><input onChange={(e) => setPhnNo(e.target.value)} onBlur={() => validateMobileNo()} placeholder='Enter your mobile number!' required />
+        </span>
+        <div id='gen'>
+        <div className='genderDiv' >
+        <input className='gender' type="radio" name="gender" value="male" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /><p>Female</p> 
+        </div>
+        <div className='genderDiv'>
+        <input className='gender' type="radio" name="gender" value="female" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /><p>Male</p>
+        </div>
+        </div>
+       <div className='check'>
+       <input type='checkbox' id='check' onChange={(e) => setCheckBox(e.target.checked)} required /><p>I agree to the terms and conditions!</p> 
+       </div>
+       <div id='signupdiv'>
+        <div id='btnDiv'>
+        <button id='btn' type='submit' >SignUp<PersonAddAlt1Icon id='icon'/></button>
+        </div>
+       </div >
+       <div id='routeLink'>
+       Already a User? <button id='linkBtn' onClick={()=>navigate('/Login')}>Go and login!<ArrowRightIcon/></button>
+       </div>
       </form>
+     
       </main>
       
     </div>

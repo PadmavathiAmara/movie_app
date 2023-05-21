@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { userDetailsStore } from "../App";
 import './MoviesPage.scss';
+import Home from "./Home";
 
 export const MoviesPage = () => {
 
@@ -29,7 +30,11 @@ export const MoviesPage = () => {
     }
 
     return (
+        <>
+        <Home/>
         <div className="moviesPage">
+<div className="moviesDiv">
+
 
             {!listOfMovies ? "Loading" :
                 <>
@@ -37,28 +42,33 @@ export const MoviesPage = () => {
                         return <>{
                              movie.isDeleted == false  ?
                                 <div className="movie">
+                                    {/* <h2>{movie.Genre}</h2> */}
+                                    {/* {(movie.Languages) ?
+                                        <>{movie.Languages.map((lang) => <div>{lang}</div>)}</> : true} */}
+                                    {/* <h2>{movie.Hero}</h2> */}
+                                    {/* <h2>{movie.heroine}</h2> */}
+                                    {/* <h2>{movie.Duration}</h2> */}
+                                    <section>
+                                    {<img src={movie.Url}/>}
                                     <h2>{movie.Title}</h2>
-                                    <h2>{movie.Genre}</h2>
-                                    {(movie.Languages) ?
-                                        <>{movie.Languages.map((lang) => <div>{lang}</div>)}</> : true}
-                                    <h2>{movie.Hero}</h2>
-                                    <h2>{movie.heroine}</h2>
-                                    <h2>{movie.Duration}</h2>
-                                    {/* {<img src={movie.Url}/>} */}
-                                    <button onClick={() => {
-                                        navigate('/UpdateMovies');
-                                        setUpdateMovies(movie);
+                                    </section>
+{/*                                     
+            <button onClick={() => {navigate('/UpdateMovies');
+                                    setUpdateMovies(movie);
                                     }}> edit </button>
-                                    <button onClick={() => {onDeleteClick(movie);
-                                                            navigate('/MoviesPage');
-                                }}>Delete</button>
+            <button onClick={() => {onDeleteClick(movie);
+                                    navigate('/MoviesPage');
+                                   }}>Delete</button> */}
                                 </div> : true
-                        }</>
+                        }
+                        </>
                     })}
                 </>
             }
+            </div>
         </div>
+       
+        </>
     )
 }
-
 export default MoviesPage;

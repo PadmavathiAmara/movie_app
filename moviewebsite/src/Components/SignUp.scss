@@ -1,9 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Pacifico&display=swap");
+
 .signup {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    // background: rgb(0, 150, 175);
+    // background: radial-gradient(circle, rgba(0,150,175,0.9557072829131653) 0%, rgba(132,214,224,0.5971638655462185) 56%, rgba(255,255,255,0.2554271708683473) 100%);
+    // background: rgb(162, 218, 228);
+    background: radial-gradient(circle, rgba(162, 218, 228, 0.9557072829131653) 0%, rgba(128, 226, 235, 0.5971638655462185) 56%, rgba(176, 235, 246, 0.2554271708683473) 100%);
 
     main {
         background-image: url("./assets/loginsignuppagesbg.jpg");
@@ -12,27 +18,125 @@
         background-repeat: no-repeat;
         background-size: cover;
 
-        h1{
+        h1 {
+            font-family: 'Kaushan Script', cursive;
             text-align: center;
-            padding: 1rem;
+            padding-bottom: 8px;
         }
 
         form {
-            width: 20rem;
-            height: 22rem;
+            width: 24rem;
+            height: 30rem;
             display: flex;
             flex-direction: column;
             position: absolute;
-            top: 4rem;
-            left: 9rem;
+            top: 7rem;
+            left: 22rem;
             gap: 1rem;
+            // background-color: wheat;
+            justify-content: center;
+            box-shadow: rgba(0, 0, 0, 0.35) 10px 10px 20px;
 
-            #check{
-                
-    height: 16px;
-    width: 3rem;
+            span {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            input {
+                height: 1.3rem;
+                width: 14rem;
+            }
+
+            #check {
+
+                height: 1rem;
+                width: 1rem;
 
             }
+
+            #gen {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .genderDiv {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+            }
+
+            p {
+                color: white;
+            }
+
+            .gender {
+                height: 1.3rem;
+                width: 1rem;
+            }
+
+            .check {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+
+
+            }
+
+            #signupdiv {
+                display: flex;
+                justify-content: center;
+                gap: 3px;
+                margin: 1rem 0px;
+
+                
+
+                #btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    // background: none;
+                    border: none;
+                    font-size: 1rem;
+                    gap: .5rem;
+                    padding: 0px 5px;
+                    color: rgb(3, 121, 132);
+                }
+
+                #btn:hover{
+                    background-color: rgb(3, 121, 132);
+                    color: white;
+                }
+
+
+            }
+
+            #routeLink{
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                color: white;
+                padding-bottom: 1rem;
+
+                #linkBtn{
+                    background: none;
+                    color: white;
+                    border: none;
+                    display: flex;
+                    align-items: center;
+                    height: 1.6rem;
+                    font-size: 1rem;
+                    padding: 6px;
+                }
+
+                #linkBtn:hover{
+                    background-color: #34a4be;
+                    color: white;
+                }
+            }
+
+
         }
 
     }

@@ -1,0 +1,38 @@
+main{
+    width: 100%;
+    height: calc(100vh - 96px);
+    // position: relative;
+
+    background-image: url('./assets/homebgfinal.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+
+   
+    
+        article {
+        position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    top: 6.5rem;
+    left: 29rem;
+    width: 40.5rem;
+    height: 27rem;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 2rem;
+    color: #2a539c;
+
+
+    
+
+    h2{
+        font-size: 2rem;
+                width: 35rem;
+                color: #3c5bd1;
+    }
+        }
+    
+}

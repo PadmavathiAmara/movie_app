@@ -1,7 +1,35 @@
-.movie{
-    width: 10rem;
-    height: 12rem;
-    display: flex;
-    flex-direction: column;
+.moviesPage{
+    width: 100%;
+    height: calc(100vh - 96px);
+
+    .moviesDiv{
+        display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: inherit;
+    background-color: aqua;
     gap: 1rem;
+
+    .movie{
+        width: 15rem;
+        height: 18rem;
+        display: flex;
+        // flex-direction: column;
+        background-color: bisque;
+        // margin: 10px;
+        
+
+        section{
+            display: flex;
+            flex-direction: column;
+        }
+        
+    }
+    }
+
+    
 }
+
+
+
+

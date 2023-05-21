@@ -4,11 +4,11 @@
 }
 
 .homeComponent {
-    width: 100%;
-    height: 100vh;
-    background-image: url('./assets/homebg.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
+    // width: 100%;
+    // height: 100vh;
+    // background-image: url('./assets/homebg.jpg');
+    // background-repeat: no-repeat;
+    // background-size: 100%;
 
     header {
         display: flex;
@@ -16,23 +16,109 @@
     align-items: center;
     width: 100%;
     height: 6rem;
+    background-color: #0B2447;
+
+    #adminBtn{
+        width: 10rem;
+        height: 2rem;
+        position: absolute;
+        left: 8rem;
+        font-size: 1rem;
+        background-color: white;
+        color: #0B2447;
+    font-weight: 600;
+    padding: 6px;
+    }
+
+    #adminBtn:hover{
+        background-color: #2a539c;
+        color: white;
+    }
+
 
         h1{
             color: white;
-            margin-left: 30rem;
+            font-family: 'Kaushan Script', cursive;
+            font-size: 3rem;
+            position: absolute;
+            left: 36rem;
         }
+
+        details{
+            position: absolute;
+            right: 8rem;
+        }
+
+        #accBtn{
+            position: absolute;
+            right: 8rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 10px;
+    font-size: 1rem;
+    color: #0B2447;
+    font-weight: 600;
+    // background-color: white;
+                
+                
+    
+        }
+
+        #accBtn:hover{
+            background-color: #2a539c;
+            color: white;
+        }
+
+        #logoutBtn{
+            position: absolute;
+            right: 13.9rem;
+            top: 4rem;
+            margin-top: 4px;
+    width: 4rem;
+    height: 2rem;
+    font-size: 1rem;
+        }
+
+        #logoutBtn:hover{
+            background-color: #2a539c;
+            color: white;
+        }
+
+
 
         #buttons {
             display: flex;
             justify-content: space-between;
-            width: 6rem;
+            align-items: center;
+            width: 8rem;
             height: 2rem;
-            margin-left: 15rem;
+            position: absolute;
+            right: 8rem;
+            background-color: white;
+
+    //         p{
+    //             position: absolute;
+    // top: 2px;
+    // left: 4rem;
+    // font-weight: 700;
+    //         }
 
             button {
                 border: none;
-                width: 5rem;
+                width: 4rem;
+                height: 2rem;
                 background-color: white;
+                color: #0B2447;
+                font-weight: 600;
+                font-size: 1rem;
+            }
+
+            button:hover{
+                background-color: #0B2447;
+                color: white;
             }
         }
 
@@ -43,19 +129,4 @@
 
     
 
-}
-
-main {
-    width: 100%;
-    height: calc(100vh - 96px);
-    position: relative;
-
-    article {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        top: 12rem;
-        left: 38rem;
-        align-items: center;
-    }
 }

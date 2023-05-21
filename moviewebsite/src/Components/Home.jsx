@@ -1,16 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import './Home.scss';
 import { userDetailsStore } from '../App';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import HomeBody from './HomeBody';
+import MoviesPage from './MoviesPage';
 
 export const Home = () => {
     const navigate = useNavigate();
+    const [isShown, setIsShown] = useState(false);
+    const [isAdminBtn, setIsAdminBtn] = useState(false);
 
     const Status = userDetailsStore(state => state.success);
     const setStatus = userDetailsStore(state => state.updateSuccess);
 
     const onLogoutClick = () => {
         setStatus("false");
+        setIsShown(false);
         localStorage.removeItem("CurrentUser");
     }
 
@@ -58,26 +64,31 @@ export const Home = () => {
     return (
         <div className="homeComponent">
             <header>
+                {/* navigate('/AdminPortal'); */}
+                {(Status == "Padmavathi")?<button id='adminBtn' onClick={()=>{setIsAdminBtn(true)}}>Admin Dashboard</button>: true }
+                {isAdminBtn ? <button>Move to Admin portal</button> : true}
                 
-                {(Status == "Padmavathi")?<button onClick={()=>navigate('/AdminPortal')}>Admin</button>: true }
                 <h1>Movie Ticket Booking</h1>
                 {(Status == "false") ?
                     <div id='buttons'>
                         <button onClick={() => navigate('/SignUp')}>SignUp</button>
                         <button onClick={() => navigate('/Login')}>Login</button>
                     </div> :
-                    <details>
-                        <summary style={{color: "white"}}>{Status}</summary>
-                        <button onClick={() => onLogoutClick()}>Logout</button>
-                    </details>}
+                    // <details>
+                        // <summary style={{color: "white"}}>{Status}</summary>
+                        // <button onClick={() => onLogoutClick()}>Logout</button>
+                    // </details>}
+                    <button id='accBtn' onClick={()=>setIsShown(true)}><AccountCircleRoundedIcon/>{Status}</button>}
+                    {isShown ? <button id='logoutBtn' onClick={() => onLogoutClick()}>Logout</button> : true}
             </header>
-            <main >
+            {/* <main >
                 <article>
                     <h1>Welcome!</h1>
                     <h2>Book your tickets for movies...</h2>
                 </article>
 
-            </main>
+            </main> */}
+            {/* <HomeBody/> */}
         </div>
     )
 }

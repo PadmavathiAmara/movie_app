@@ -1,16 +1,79 @@
-#movie{
+.Admin{
+    width: 100%;
+    height: calc(100vh - 96px);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+    #movieAdding{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        height: inherit;
+        // background-color: antiquewhite;
+        gap: 1rem;
+
+        h2{
+            position: absolute;
+            top: 8rem;
+        }
+
+        span{
+            display: flex;
+            justify-content: space-between;
+            width: 20rem;
+            gap: 1rem;
+
+            input{
+                width: 11rem;
+            }
+
+            .dateinput{
+                width: 11rem;
+                height: 1.5rem;
+            }
+        }
+
+        
+        #btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // background: none;
+            border: none;
+            font-size: 1.3rem;
+            gap: .5rem;
+            padding: 6px;
+            color: rgb(3, 121, 132);
+            position: absolute;
+            bottom: 3rem;
+            width: 10rem;
+        }
+
+        #btn:hover{
+            background-color: rgb(3, 121, 132);
+            color: white;
+        }
+    }
+
+    .movieUpdate{
+        width: 60%;
+        height: inherit;
+        background-color: aquamarine;
+
+        h2{
+            position: absolute;
+            top: 8rem;
+            left: 63rem;
+        }
+
+        // .dataDiv{
+        //     width: 15rem;
+        //     height: 15rem;
+        // }
+    }
 }
 
-article{
-    text-align: center;
-}
 
-#movieAdding{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+
+

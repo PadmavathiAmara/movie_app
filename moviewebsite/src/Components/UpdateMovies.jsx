@@ -12,6 +12,7 @@ export const UpdateMovies = () => {
     console.log(moviesArr);
 
     const [updateMovies, setUpdateMovies] = useState({
+        isDeleted: false,
         Id: '',
         Title: '',
         Genre: '',
@@ -31,6 +32,7 @@ export const UpdateMovies = () => {
     const onLoadSetMovies = () => {
         moviesArr.map((mv) => {
             setUpdateMovies({
+                isDeleted: false,
                 Id: mv.mov.Id,
                 Title: mv.mov.Title,
                 Genre: mv.mov.Genre,
