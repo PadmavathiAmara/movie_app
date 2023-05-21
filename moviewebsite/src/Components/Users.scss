@@ -1,0 +1,82 @@
+.users {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .tableDiv {
+        width: 72rem;
+        height: 37rem;
+        background-color: antiquewhite;
+        overflow: auto;
+
+        #head {
+            width: 100%;
+            height: 4rem;
+            background-color: aquamarine;
+            
+        }
+
+        #un,#email,#mobile,#gen{
+            height: 4rem;
+        }
+
+        #row {
+            width: 100%;
+            height: 3rem;
+            background-color: aqua;
+            display: flex;  
+             
+        }
+
+        .un {
+            width: 11rem;
+        height: 3rem;
+
+            // background-color: red;
+            position: absolute;
+            left: 17rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .email {
+            width: 18rem;
+        height: 3rem;
+
+            // background-color: red;
+            position: absolute;
+            left: 34rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile {
+            width: 10rem;
+        height: 3rem;
+
+            // background-color: red;
+            position: absolute;
+            right: 28rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gen {
+            width: 5rem;
+        height: 3rem;
+
+            // background-color: red;
+            position: absolute;
+            right: 16rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

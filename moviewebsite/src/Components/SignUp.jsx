@@ -158,10 +158,10 @@ export const SignUp = () => {
         </span>
         <div id='gen'>
         <div className='genderDiv' >
-        <input className='gender' type="radio" name="gender" value="male" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /><p>Female</p> 
+        <input className='gender' type="radio" name="gender" value="male" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /><p>Female</p> 
         </div>
         <div className='genderDiv'>
-        <input className='gender' type="radio" name="gender" value="female" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /><p>Male</p>
+        <input className='gender' type="radio" name="gender" value="female" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /><p>Male</p>
         </div>
         </div>
        <div className='check'>
