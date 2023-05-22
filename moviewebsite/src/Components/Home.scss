@@ -19,15 +19,19 @@
     background-color: #0B2447;
 
     #adminBtn{
-        width: 10rem;
+        width: 16rem;
         height: 2rem;
         position: absolute;
-        left: 8rem;
+        left: 7rem;
         font-size: 1rem;
-        background-color: white;
+        // background-color: white;
         color: #0B2447;
     font-weight: 600;
     padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     }
 
     #adminBtn:hover{
@@ -74,12 +78,23 @@
 
         #logoutBtn{
             position: absolute;
-            right: 13.9rem;
-            top: 4rem;
+            right: 7.9rem;
+            top: 5.7rem;
             margin-top: 4px;
-    width: 4rem;
+            background-color: #0B2447;
+            border: none;
+            color: white;
+    width: 10rem;
     height: 2rem;
     font-size: 1rem;
+    font-weight: 600;
+
+
+    #logoutIcons{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
         }
 
         #logoutBtn:hover{

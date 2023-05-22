@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { userDetailsStore } from "../App";
 import './MoviesPage.scss';
 import Home from "./Home";
+import Header from "./Header";
 
 export const MoviesPage = () => {
 
@@ -31,7 +32,7 @@ export const MoviesPage = () => {
 
     return (
         <>
-        <Home/>
+        <Header/>
         <div className="moviesPage">
 <div className="moviesDiv">
 
@@ -52,11 +53,11 @@ export const MoviesPage = () => {
                                     {<img src={movie.Url}/>}
                                     <h2>{movie.Title}</h2>
                                     </section>
-{/*                                     
+                                    
             <button onClick={() => {navigate('/UpdateMovies');
                                     setUpdateMovies(movie);
                                     }}> edit </button>
-            <button onClick={() => {onDeleteClick(movie);
+            {/* <button onClick={() => {onDeleteClick(movie);
                                     navigate('/MoviesPage');
                                    }}>Delete</button> */}
                                 </div> : true
