@@ -63,15 +63,16 @@ export const SignUp = () => {
   const userarr = userDetailsStore(state => state.users)
   const setUserArr = userDetailsStore(state => state.updateUsers)
 
-  const validateUsername = () => {
+  const Validate_Username = () => {
     if (un.match("^[A-Za-z][A-Za-z]{4,29}$")) {
-
+      
       console.log(un);
-      return true;
+      return <h4>Qualified</h4>;
     }
-    // else{
-    //   alert("Invalid Username!");
-    // }
+    else{
+      // alert("Invalid Username!");
+      return <h4>User exists</h4>;
+    }
   }
 
   const validateEmailId = () => {
@@ -142,8 +143,10 @@ export const SignUp = () => {
       <h1>SignUp</h1>
 
         <span>
-       <Person2Icon/><input onChange={(e) => setUn(e.target.value)} onBlur={() => validateUsername()} placeholder='Enter your fullname!' required />
+       <Person2Icon/><input onChange={(e) => setUn(e.target.value)} placeholder='Enter your fullname!' required />
         </span>
+       <Validate_Username/>
+
         <span>
         <EmailRoundedIcon/><input type='email' onChange={(e) => setEmail(e.target.value)} onBlur={() => validateEmailId()} placeholder='Enter your Email Id!' required />
         </span>

@@ -43,7 +43,7 @@ export const Login = () => {
             }
         });
         setAccUser(foundUser);
-        localStorage.setItem("CurrentUser",JSON.stringify([foundUser]));
+        localStorage.setItem("CurrentUser",JSON.stringify(foundUser));
         }
         
     }

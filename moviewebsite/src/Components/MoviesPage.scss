@@ -30,6 +30,76 @@
     
 }
 
+.css-1wnsr1i{
+    width: 75rem !important;
+    height: 34rem !important;
+    padding: 0px !important;
+
+    #mainDiv{
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    #theatre{
+        width: 50%;
+        background-color: rgb(88, 148, 201);
+
+        #screen{
+            width: 28rem;
+            height: 2rem;
+            background-color: yellow;
+            position: absolute;
+    left: 5rem;
+    top: 2rem;
+        }
+
+        #seats{
+            width: 28rem;
+    height: 7rem;
+    // background-color: aqua;
+    position: absolute;
+    top: 8rem;
+    left: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+        }
+
+        .firstSec{
+            width: 24rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+
+    button{
+        width: 3rem;
+    height: 2rem;
+    }
+        }
+    }
+
+    #topSeats{
+        width: 28rem;
+    height: 16rem;
+    background-color: aquamarine;
+    position: absolute;
+    top: 15rem;
+    left: 5rem;
+    }
+
+    #tickets{
+        width: 50%;
+    }
+
+    #movie{
+        background-color: rgb(88, 88, 240);
+    }
+}
+
 
 
 

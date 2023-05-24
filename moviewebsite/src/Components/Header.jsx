@@ -20,7 +20,10 @@ const Header = () => {
         setStatus("false");
         setIsShown(false);
         localStorage.removeItem("CurrentUser");
+        navigate('/');
     }
+
+    let getcurrentUserData = JSON.parse(localStorage.getItem("CurrentUser"));
     return(
         <>
         <div className="homeComponent">
@@ -29,22 +32,25 @@ const Header = () => {
                 {(Status == "Padmavathi")?<button id='adminBtn' onClick={()=>{setIsAdminBtn(!isAdminBtn)}}>Admin Dashboard{ isAdminBtn ?<KeyboardArrowDownIcon/>: <KeyboardArrowRightIcon/>}</button>: true }
                 {isAdminBtn ?  <div id='adminMenu'>
                     <button className='btns' onClick={()=>navigate('/')}>
-                        Home page
+                        Home
                     </button>
-                    <button className='btns' onClick={()=>navigate('/Moviespage')}>
-                        Movies page
+                    <button className='btns' onClick={()=>navigate('/AdminPortal')}>
+                        Admin Portal 
                     </button>
                     <button className='btns'onClick={()=>navigate('/UpdateMovies')}>
-                        update movies
+                        Update Movies
                     </button>
-                    <button className='btns'onClick={()=>navigate('/AdminPortal')}>
-                        Admin portal 
+                    <button className='btns'onClick={()=>navigate('/Moviespage')}>
+                        Movies Page
+                    </button>
+                    <button className='btns'onClick={()=>navigate('/UsersInfo')}>
+                         Users Info
                     </button>
                 </div> : true}
                
                 
                 <h1>Movie Ticket Booking</h1>
-                {(Status == "false") ?
+                {!getcurrentUserData ?
                     <div id='buttons'>
                         <button onClick={() => navigate('/SignUp')}>SignUp</button>
                         <button onClick={() => navigate('/Login')}>Login</button>
@@ -54,7 +60,7 @@ const Header = () => {
                         // <button onClick={() => onLogoutClick()}>Logout</button>
                     // </details>}
                     <button id='accBtn' 
-                    onClick={()=>setIsShown(!isShown)}><AccountCircleRoundedIcon/>{Status}</button>}
+                    onClick={()=>setIsShown(!isShown)}><AccountCircleRoundedIcon/>{getcurrentUserData.Username}</button>}
                     {isShown ? <button id='logoutBtn' onClick={() => onLogoutClick()}><div id='logoutIcons'>Logout<LogoutIcon/></div></button> : true}
             </header>
            

@@ -25,7 +25,7 @@ export const AdminPortal = () => {
             localStorage.setItem("MoviesList", JSON.stringify(storedMoviearr));
         }
     }
-    // console.log(movies)
+
 
     
 
@@ -85,14 +85,14 @@ export const AdminPortal = () => {
 
                         <p>Available dates:</p>
                         <div>
-                        <span id='dateinput'>
+                        <span className='dateinput'>
                             From: <input className='dateinput' type="date" name='date_from'
                                 onChange={(e) => setMovies({ ...movies, [[e.target.name]]: e.target.value })}
                             />
                         </span>
 
                         <br />
-                        <span id='dateinput'>
+                        <span className='dateinput'>
                             To: <input className='dateinput' type="date" name='date_to'
                                 onChange={(e) => setMovies({ ...movies, [[e.target.name]]: e.target.value })}
                             />

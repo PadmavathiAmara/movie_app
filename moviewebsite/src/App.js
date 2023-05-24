@@ -8,6 +8,7 @@ import { create } from 'zustand';
 import MoviesPage from './Components/MoviesPage';
 import UpdateMovies from './Components/UpdateMovies';
 import Users from './Components/Users';
+import Header from './Components/Header';
 
 export const userDetailsStore = create((set) => (
   {
@@ -38,6 +39,7 @@ const App = () => {
 
   return (
     <div className="App">
+      {/* {window.location.pathname !== '/SignUp' || window.location.pathname !== '/Login' && <Header/>} */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Login' element={<Login />} />
