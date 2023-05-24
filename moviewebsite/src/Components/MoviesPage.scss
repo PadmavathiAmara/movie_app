@@ -1,105 +1,205 @@
-.moviesPage{
+.moviesPage {
     width: 100%;
     height: calc(100vh - 96px);
 
-    .moviesDiv{
-        display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: inherit;
-    background-color: aqua;
-    gap: 1rem;
+    #heading{
+        width: 100%;
+        height: 4rem;
+        text-align: center;
 
-    .movie{
-        width: 15rem;
-        height: 18rem;
-        display: flex;
-        // flex-direction: column;
-        background-color: bisque;
-        // margin: 10px;
-        
-
-        section{
-            display: flex;
-            flex-direction: column;
+        h2{
+            font-size: 2.3rem;
         }
-        
-    }
     }
 
-    
+    .moviesDiv {
+        width: 92rem;
+        height: 80rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0px 2rem;
+        gap: 1rem;
+        position: absolute;
+        top: 10rem;
+        overflow: auto;
+
+        .movie {
+            width: 16rem;
+            height: 24rem;
+            display: flex;
+
+
+    //         section {
+    //             display: flex;
+    // flex-direction: column;
+    // background-color: lavender;
+    // width: 15rem;
+    // height: 16rem;
+
+    // h2{
+    //     text-align: center;
+    // }
+
+    // button{
+    //     height: 2rem;
+    // width: 5rem;
+    // margin-left: 5rem;
+    // margin-top: 6px;
+    // }
+            // }
+
+        }
+    }
+
+
 }
 
-.css-1wnsr1i{
+.css-1wnsr1i {
     width: 75rem !important;
     height: 34rem !important;
     padding: 0px !important;
 
-    #mainDiv{
+    #mainDiv {
         width: 100%;
         height: 100%;
         display: flex;
     }
 
-    #theatre{
+    #theatre {
         width: 50%;
         background-color: rgb(88, 148, 201);
 
-        #screen{
+        #screen {
             width: 28rem;
             height: 2rem;
             background-color: yellow;
             position: absolute;
-    left: 5rem;
-    top: 2rem;
+            left: 5rem;
+            top: 2rem;
         }
 
-        #seats{
+        #seats {
             width: 28rem;
-    height: 7rem;
-    // background-color: aqua;
-    position: absolute;
-    top: 8rem;
-    left: 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+            height: 7rem;
+            // background-color: aqua;
+            position: absolute;
+            top: 7rem;
+            left: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .firstSec{
-            width: 24rem;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3px;
 
-    button{
-        width: 3rem;
-    height: 2rem;
-    }
+
+        button {
+            width: 3rem;
+            height: 2rem;
         }
+
     }
 
-    #topSeats{
+    .firstSec {
+        width: 24rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+    }
+
+    #topSeats {
         width: 28rem;
-    height: 16rem;
-    background-color: aquamarine;
-    position: absolute;
-    top: 15rem;
-    left: 5rem;
+        height: 19rem;
+        // background-color: aquamarine;
+        position: absolute;
+        top: 14rem;
+        left: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .seat {
+            width: 4rem;
+        }
+
     }
 
-    #tickets{
+    #leftpart {
         width: 50%;
+
+        #tickets {
+            width: 100%;
+            height: 55%;
+            
+
+            #ticketsSec{
+                width: 32rem;
+                height: 13rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                margin-left: 3rem;
+
+                span{
+                    font-size: 1.2rem;
+                }
+            }
+
+            #book{
+                width: 6rem;
+                height: 2rem;
+                margin-left: 16rem;
+            }
+
+            #clrBtns {
+                width: 26rem;
+                height: 3rem;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                position: absolute;
+                bottom: 0;
+                left: 43.5rem;
+
+                .btns {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                }
+
+            }
+
+            #available {
+                width: 1rem;
+                height: 1rem;
+                background-color: rgb(159, 159, 159);
+            }
+
+            #sold {
+                width: 1rem;
+                height: 1rem;
+                background-color: red;
+            }
+
+            #selected {
+                width: 1rem;
+                height: 1rem;
+                background-color: green;
+            }
+        }
+
+        #movie {
+            width: 100%;
+            height: 45%;
+            background-color: rgb(88, 88, 240);
+        }
     }
 
-    #movie{
-        background-color: rgb(88, 88, 240);
-    }
+
 }
-
-
-
-

@@ -55,6 +55,8 @@ export const MoviesPage = () => {
         <>
             <Header />
             <div className="moviesPage">
+        <div id='heading'><h2>Endless Entertainment!</h2></div>
+
                 <div className="moviesDiv">
 
                     {!listOfMovies ? "Loading" :
@@ -103,7 +105,7 @@ export const MoviesPage = () => {
 
 <div id="mainDiv">
             <div id="theatre">
-<div id="screen"></div>
+<div id="screen">screen</div>
 <div id="seats">
 <div className="firstSec">
     <button>A1</button>
@@ -130,12 +132,74 @@ export const MoviesPage = () => {
     <button>B10</button>
 </div>
 </div>
-<div id="topSeats"></div>
+<div id="topSeats">
+    <div className="firstSec">
+    <button>B1</button>
+    <button>B2</button>
+    <button>B3</button>
+    <button>B4</button>
+    <button>B5</button>
+    <button>B6</button>
+    <button>B7</button>
+    <button>B8</button>
+    <button>B9</button>
+    <button>B10</button>
+    </div>
+    <div className="firstSec">
+    <button>B1</button>
+    <button>B2</button>
+    <button>B3</button>
+    <button>B4</button>
+    <button>B5</button>
+    <button>B6</button>
+    <button>B7</button>
+    <button>B8</button>
+    <button>B9</button>
+    <button>B10</button>
+    </div>
+    <div className="firstSec">
+    <button>B1</button>
+    <button>B2</button>
+    <button>B3</button>
+    <button>B4</button>
+    <button>B5</button>
+    <button>B6</button>
+    <button>B7</button>
+    <button>B8</button>
+    <button>B9</button>
+    <button>B10</button>
+    </div>
+    <div className="firstSec">
+    <button>B1</button>
+    <button>B2</button>
+    <button>B3</button>
+    <button>B4</button>
+    <button>B5</button>
+    <button>B6</button>
+    <button>B7</button>
+    <button>B8</button>
+    <button>B9</button>
+    <button>B10</button>
+    </div>
+    <div className="firstSec">
+    <button className="seat">B1</button>
+    <button className="seat">B2</button>
+    <button className="seat">B3</button>
+    <button className="seat">B4</button>
+    <button className="seat">B5</button>
+    {/* <button>B6</button>
+    <button>B7</button>
+    <button>B8</button>
+    <button>B9</button>
+    <button>B10</button> */}
+    </div>
+
+</div>
 
 
 
             </div>
-            <div>
+            <div id='leftpart'>
             {listOfMovies.map((movie) => {
                                 return <>
                                 {movie.isDeleted == false ?
@@ -152,7 +216,29 @@ export const MoviesPage = () => {
                                 </>
                             })}
 
-                            <div id="tickets">show tickets</div>
+                            <div id="tickets">
+                                <div id="ticketsSec">
+                                <span>Movie: <span>bfvh</span></span>
+                                <span>Time: <span>fvnfnvkjfv</span></span>
+                                <span>Tickets: <span>fvbjdf</span></span>
+                                <span>Total: <span>dfge</span></span>
+                                <span>Seats: <div></div></span>
+                                </div>
+                                
+                                <button id='book'>Book Now!</button>
+
+                            <div id="clrBtns">
+                               <span className="btns">
+                                <div id="available"></div>Available
+                                </span> 
+                                <span className="btns">
+                                <div id="sold"></div>Sold
+                                </span>
+                                <span className="btns">
+                                <div id="selected"></div>Selected
+                                </span>
+                            </div>
+                            </div>
             </div>
             </div>
         </Box>
