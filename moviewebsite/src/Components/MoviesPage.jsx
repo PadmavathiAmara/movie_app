@@ -7,7 +7,7 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
-import { A } from "./assets/Seats";
+import { A, B, C, D, E, F, G, data } from "./assets/Seats";
 
 const style = {
     position: 'absolute',
@@ -31,11 +31,15 @@ export const MoviesPage = () => {
     const handleClose = () => setOpen(false);
     const [selectedSeats, setSelectedSeats] = useState([]);
     // const [changeSelected,setChangeSelected] = useState([])
+    const [bookedTicketsArr, setBookedTicketsArr] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+    let total = 0;
 
     useEffect(() => {
         console.log(selectedSeats.length);
         console.log(selectedSeats);
-    }, [selectedSeats])
+        console.log(bookedTicketsArr);
+    }, [selectedSeats,bookedTicketsArr])
 
     let listOfMovies = JSON.parse(localStorage.getItem("MoviesList"));
 
@@ -59,16 +63,43 @@ export const MoviesPage = () => {
 
     }
 
+    // let data=[];
+    // for(let i=1;i<=30;i++){
+    //     let test;
+    //     if(i>=1 && i<=10){
+    //         test="A"+i
+    //     temp= "isDeleted: false";
+    //     }
+    //      if(i>=11 && i<=20){
+            
+    //                 test="B"+(i-10)
+    //                 temp= "isDeleted: false";
+    
+    //     } if(i>=21 && i<=30){
+    //                 test="C"+(i-20)
+    // temp= "isDeleted: false";
+    //     }
+    //     data.push(test,temp)
+    // }
+    // console.log(data)
+
+    // data.map((s,i)=>{
+    //     if(i<10){
+    //         return <button>{s}</button>
+
+    //     }
+    // })
+
     const onSelectedSeats = (seatNo) => {
         console.log(seatNo);
-        seatNo.isSelected= !seatNo.isSelected;
+        seatNo.isSelected = !seatNo.isSelected;
         console.log(seatNo);
         if (selectedSeats.length < 4) {
             if (seatNo.isSelected == true) {
-            console.log(seatNo);
+                console.log(seatNo);
                 setSelectedSeats([...selectedSeats, seatNo])
             } else {
-            console.log(seatNo);
+                console.log(seatNo);
                 let seatFilter = selectedSeats.filter((s) => {
                     if (s.isSelected != false) {
                         return s;
@@ -77,28 +108,42 @@ export const MoviesPage = () => {
                 setSelectedSeats(seatFilter);
             }
         }
-        else{
-            seatNo.isSelected= !seatNo.isSelected;
-        console.log(seatNo);
-            let seatFil = selectedSeats.filter((s) => {
-            seatNo.isSelected= !seatNo.isSelected;
+        else {
+            seatNo.isSelected = !seatNo.isSelected;
             console.log(seatNo);
+            let seatFil = selectedSeats.filter((s) => {
+                seatNo.isSelected = !seatNo.isSelected;
+                console.log(seatNo);
                 if (s.isSelected != false) {
                     return s;
                 }
             })
-        console.log(seatFil);
-        // let filterd = seatFil.filter((f)=>{
-        //     if(f.seatValue == seatNo.seatValue){
-        //         seatNo.isSelected = false;
-        //         return seatNo;
-        //     }
-        // })
-        // console.log(filterd);
-        // setSelectedSeats(filterd);
-        setSelectedSeats(seatFil);
+            console.log(seatFil);
+            // let filterd = seatFil.filter((f)=>{
+            //     if(f.seatValue == seatNo.seatValue){
+            //         seatNo.isSelected = false;
+            //         return seatNo;
+            //     }
+            // })
+            // console.log(filterd);
+            // setSelectedSeats(filterd);
+            setSelectedSeats(seatFil);
 
         }
+    }
+
+    const onBooked = (bookedMv, finalSeat) => {
+        if (finalSeat.length == 1) {
+            finalSeat[0].isBooked = true;
+            console.log(finalSeat);
+        }
+        else {
+            finalSeat.map((seat) => {
+                seat.isBooked = true;
+                console.log(seat);
+            })
+        }
+        setBookedTicketsArr(finalSeat.concat(bookedMv));
     }
 
 
@@ -160,108 +205,70 @@ export const MoviesPage = () => {
                                 <div id="screen">screen</div>
                                 <div id="seats">
                                     <div className="firstSec">
-                                        {A.map((a) => {
-                                            return (
-                                                <button onClick={() => { onSelectedSeats(a) }}>{a.seatValue}</button>
-                                            )
-                                        })}
+                                        {
+                                            data.map((s,i)=>{
+                                                if(i<10){
+                                                    return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
 
-
-
-                                        {/* <button onClick={()=>{onSelectedSeats("A2")}}>A2</button>
-    <button onClick={()=>{onSelectedSeats("A3")}}>A3</button>
-    <button onClick={()=>{onSelectedSeats("A4")}}>A4</button>
-    <button onClick={()=>{onSelectedSeats("A5")}}>A5</button>
-    <button onClick={()=>{onSelectedSeats("A6")}}>A6</button>
-    <button onClick={()=>{onSelectedSeats("A7")}}>A7</button>
-    <button onClick={()=>{onSelectedSeats("A8")}}>A8</button>
-    <button onClick={()=>{onSelectedSeats("A9")}}>A9</button>
-    <button onClick={()=>{onSelectedSeats("A10")}}>A10</button> */}
+                                                }
+                                            })
+                                        }
                                     </div>
                                     <div className="firstSec">
-                                        <button>B1</button>
-                                        <button>B2</button>
-                                        <button>B3</button>
-                                        <button>B4</button>
-                                        <button>B5</button>
-                                        <button>B6</button>
-                                        <button>B7</button>
-                                        <button>B8</button>
-                                        <button>B9</button>
-                                        <button>B10</button>
+                                    {
+                                        data.map((s,i)=>{
+                                            if(i >= 10 && i < 20){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+
+                                            }
+                                        })
+                                    }
                                     </div>
                                 </div>
                                 <div id="topSeats">
                                     <div className="firstSec">
-                                        <button>B1</button>
-                                        <button>B2</button>
-                                        <button>B3</button>
-                                        <button>B4</button>
-                                        <button>B5</button>
-                                        <button>B6</button>
-                                        <button>B7</button>
-                                        <button>B8</button>
-                                        <button>B9</button>
-                                        <button>B10</button>
+                                    {data.map((s,i)=>{
+                                            if(i >= 20 && i < 30){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+
+                                            }
+                                        })}
                                     </div>
                                     <div className="firstSec">
-                                        <button>B1</button>
-                                        <button>B2</button>
-                                        <button>B3</button>
-                                        <button>B4</button>
-                                        <button>B5</button>
-                                        <button>B6</button>
-                                        <button>B7</button>
-                                        <button>B8</button>
-                                        <button>B9</button>
-                                        <button>B10</button>
+                                    {data.map((s,i)=>{
+                                            if(i >= 30 && i < 40){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+
+                                            }
+                                        })}
                                     </div>
                                     <div className="firstSec">
-                                        <button>B1</button>
-                                        <button>B2</button>
-                                        <button>B3</button>
-                                        <button>B4</button>
-                                        <button>B5</button>
-                                        <button>B6</button>
-                                        <button>B7</button>
-                                        <button>B8</button>
-                                        <button>B9</button>
-                                        <button>B10</button>
+                                    {data.map((s,i)=>{
+                                            if(i >= 40 && i < 50){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+
+                                            }
+                                        })}
                                     </div>
                                     <div className="firstSec">
-                                        <button>B1</button>
-                                        <button>B2</button>
-                                        <button>B3</button>
-                                        <button>B4</button>
-                                        <button>B5</button>
-                                        <button>B6</button>
-                                        <button>B7</button>
-                                        <button>B8</button>
-                                        <button>B9</button>
-                                        <button>B10</button>
+                                    {data.map((s,i)=>{
+                                            if(i >= 50 && i < 60){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+
+                                            }
+                                        })}
                                     </div>
                                     <div className="firstSec">
-                                        <button className="seat">B1</button>
-                                        <button className="seat">B2</button>
-                                        <button className="seat">B3</button>
-                                        <button className="seat">B4</button>
-                                        <button className="seat">B5</button>
-                                        {/* <button>B6</button>
-    <button>B7</button>
-    <button>B8</button>
-    <button>B9</button>
-    <button>B10</button> */}
+                                    {data.map((s,i)=>{
+                                            if(i >= 60 && i < 65){
+                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                            }
+                                        })}
                                     </div>
 
                                 </div>
-
-
-
                             </div>
                             <div id='leftpart'>
-                                {/* {displayMv.map((movie) => { */}
-                                {/* return <> */}
-                                {/* {movie.isDeleted == false ? */}
                                 <div id="movie">
                                     {<div id="mvImg"><img src={displayMv.Url} /></div>}
                                     <div id="movieInfo">
@@ -274,10 +281,6 @@ export const MoviesPage = () => {
                                     </div>
 
                                 </div>
-                                {/* : true} */}
-                                {/* </> */}
-                                {/* })} */}
-
                                 <div id="tickets">
                                     <div id="ticketsSec">
                                         <span>Movie: <span>{displayMv.Title}</span></span>
@@ -290,21 +293,24 @@ export const MoviesPage = () => {
 
                                         </select></span>
                                         <span>Tickets: <span>
-                                            {/* {selectedSeats.length} */}
+                                            {selectedSeats.length}
                                         </span></span>
-                                        <span>Total: <span></span></span>
-                                        {/* <span>Seats: <div id="showSeats">
-                                                {selectedSeats.map((seat)=>{
-                                                    return(
-                                                        <button>{seat}</button>
-
-                                                    )
-                                                })}
-                                               </div>
-                                    </span> */}
+                                        
+                                        <span>Seats: <div id="showSeats">
+                                            {selectedSeats ?
+                                                selectedSeats.length == 1 ?
+                                                    <span>{selectedSeats[0].seatValue},</span> :
+                                                    selectedSeats.map((seat) => {
+                                                        return (
+                                                            <span>{seat.seatValue},</span>
+                                                        )
+                                                    })
+                                                : true}
+                                        </div>
+                                        </span>
                                     </div>
 
-                                    <button id='book'>Book Now!</button>
+                                    <button id='book' onClick={() => { onBooked(displayMv, selectedSeats) }}>Book Now!</button>
 
                                     <div id="clrBtns">
                                         <span className="btns">
