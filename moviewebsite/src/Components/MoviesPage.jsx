@@ -4,6 +4,7 @@ import './MoviesPage.scss';
 import Home from "./Home";
 import Header from "./Header";
 import { Box, Button, Modal, Typography } from "@mui/material";
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
@@ -24,22 +25,28 @@ const style = {
 export const MoviesPage = () => {
 
     const [open, setOpen] = useState(false);
+    const [openChild, setOpenChild] = useState(false);
     const [displayMv, setDisplayMv] = useState([]);
     const navigate = useNavigate();
     const setUpdateMovies = userDetailsStore(state => state.updateMovies);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
     const [selectedSeats, setSelectedSeats] = useState([]);
     // const [changeSelected,setChangeSelected] = useState([])
     const [bookedTicketsArr, setBookedTicketsArr] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
-    let total = 0;
+    const [isSelectedShow, setIsSelectedShow] = useState(false);
+    let subTotal = 0;
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleOpenChild = () => setOpenChild(true);
+    const handleCloseChild = () => setOpenChild(false);
 
     useEffect(() => {
         console.log(selectedSeats.length);
         console.log(selectedSeats);
         console.log(bookedTicketsArr);
-    }, [selectedSeats,bookedTicketsArr])
+        console.log(isSelectedShow);
+    }, [selectedSeats, bookedTicketsArr, isSelectedShow])
 
     let listOfMovies = JSON.parse(localStorage.getItem("MoviesList"));
 
@@ -71,10 +78,10 @@ export const MoviesPage = () => {
     //     temp= "isDeleted: false";
     //     }
     //      if(i>=11 && i<=20){
-            
+
     //                 test="B"+(i-10)
     //                 temp= "isDeleted: false";
-    
+
     //     } if(i>=21 && i<=30){
     //                 test="C"+(i-20)
     // temp= "isDeleted: false";
@@ -128,11 +135,11 @@ export const MoviesPage = () => {
             // console.log(filterd);
             // setSelectedSeats(filterd);
             setSelectedSeats(seatFil);
-
         }
     }
 
-    const onBooked = (bookedMv, finalSeat) => {
+    const bookingValidation = (bookedMv, finalSeat) => {
+
         if (finalSeat.length == 1) {
             finalSeat[0].isBooked = true;
             console.log(finalSeat);
@@ -143,8 +150,27 @@ export const MoviesPage = () => {
                 console.log(seat);
             })
         }
-        setBookedTicketsArr(finalSeat.concat(bookedMv));
+        if (isSelectedShow && selectedSeats.length > 0) {
+            handleOpenChild();
+            handleClose();
+            setBookedTicketsArr(finalSeat.concat(bookedMv));
+
+        }
+        else {
+            console.log("please book tickets!")
+        }
+
     }
+
+    // const bookingValidation = () => {
+    //     if(isSelectedShow && selectedSeats.length > 0){
+    //         handleOpenChild(); 
+    //         handleClose();
+    //     }
+    //     else{
+    //         console.log("please book tickets!")
+    //     }
+    // }
 
 
     return (
@@ -206,62 +232,62 @@ export const MoviesPage = () => {
                                 <div id="seats">
                                     <div className="firstSec">
                                         {
-                                            data.map((s,i)=>{
-                                                if(i<10){
-                                                    return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                            data.map((s, i) => {
+                                                if (i < 10) {
+                                                    return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
                                                 }
                                             })
                                         }
                                     </div>
                                     <div className="firstSec">
-                                    {
-                                        data.map((s,i)=>{
-                                            if(i >= 10 && i < 20){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {
+                                            data.map((s, i) => {
+                                                if (i >= 10 && i < 20) {
+                                                    return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
-                                            }
-                                        })
-                                    }
+                                                }
+                                            })
+                                        }
                                     </div>
                                 </div>
                                 <div id="topSeats">
                                     <div className="firstSec">
-                                    {data.map((s,i)=>{
-                                            if(i >= 20 && i < 30){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {data.map((s, i) => {
+                                            if (i >= 20 && i < 30) {
+                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
-                                    {data.map((s,i)=>{
-                                            if(i >= 30 && i < 40){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {data.map((s, i) => {
+                                            if (i >= 30 && i < 40) {
+                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
-                                    {data.map((s,i)=>{
-                                            if(i >= 40 && i < 50){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {data.map((s, i) => {
+                                            if (i >= 40 && i < 50) {
+                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
-                                    {data.map((s,i)=>{
-                                            if(i >= 50 && i < 60){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {data.map((s, i) => {
+                                            if (i >= 50 && i < 60) {
+                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
 
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
-                                    {data.map((s,i)=>{
-                                            if(i >= 60 && i < 65){
-                                                return <button onClick={()=>{onSelectedSeats(s)}}>{s.seatValue}</button>
+                                        {data.map((s, i) => {
+                                            if (i >= 60 && i < 65) {
+                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
                                             }
                                         })}
                                     </div>
@@ -269,6 +295,7 @@ export const MoviesPage = () => {
                                 </div>
                             </div>
                             <div id='leftpart'>
+                                <h2 id='heading'>Multiplex Theatre Showing Screen</h2>
                                 <div id="movie">
                                     {<div id="mvImg"><img src={displayMv.Url} /></div>}
                                     <div id="movieInfo">
@@ -283,8 +310,8 @@ export const MoviesPage = () => {
                                 </div>
                                 <div id="tickets">
                                     <div id="ticketsSec">
-                                        <span>Movie: <span>{displayMv.Title}</span></span>
-                                        <span>Time: <select>
+                                        <span className="eachSec"><div className="key">Movie:</div><div className="value">{displayMv.Title}</div></span>
+                                        <span className="eachSec"><div className="key">Time:</div> <select onChange={() => setIsSelectedShow(true)} className="value">
                                             <option value="Select show time">Select show time!</option>
                                             <option value="Morning Show(10:00 AM to 12:30 PM)">Morning Show(10:00 AM to 12:30 PM)</option>
                                             <option value="Matinee Show(1:00 PM to 3:30 PM)">Matinee Show(1:00 PM to 3:30 PM)</option>
@@ -292,11 +319,11 @@ export const MoviesPage = () => {
                                             <option value="Second Show(7:00 PM to 9:30 PM)">Second Show(7:00 PM to 9:30 PM)</option>
 
                                         </select></span>
-                                        <span>Tickets: <span>
+                                        {/* <span>Tickets: <span>
                                             {selectedSeats.length}
-                                        </span></span>
-                                        
-                                        <span>Seats: <div id="showSeats">
+                                        </span></span> */}
+
+                                        <span className="eachSec"><div className="key">Seats:</div> <div id="showSeats" className="value">
                                             {selectedSeats ?
                                                 selectedSeats.length == 1 ?
                                                     <span>{selectedSeats[0].seatValue},</span> :
@@ -310,7 +337,10 @@ export const MoviesPage = () => {
                                         </span>
                                     </div>
 
-                                    <button id='book' onClick={() => { onBooked(displayMv, selectedSeats) }}>Book Now!</button>
+                                    <button id='book' onClick={() => {
+                                        // onBooked(displayMv, selectedSeats); 
+                                        bookingValidation(displayMv, selectedSeats)
+                                    }}>Book Now!</button>
 
                                     <div id="clrBtns">
                                         <span className="btns">
@@ -329,7 +359,42 @@ export const MoviesPage = () => {
                     </Box>
                 </Modal>
             </div>
+            <Modal
+                open={openChild}
+                onClose={handleCloseChild}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    {console.log(bookedTicketsArr)}
+                    {bookedTicketsArr.map((mv, i, bookedTicketsArr) => {
+                        if (i == bookedTicketsArr.length - 1) {
+                            console.log(mv);
+                            return <div id='successStmnt'>Your booking is successful for {mv.Title} <TaskAltIcon id='tick'/></div>
+                        }
+                    })}
+                    <div id="seatsDisplay">Allocated seats are:{bookedTicketsArr.map((seat, i, bookedTicketsArr) => {
+                        console.log(seat);
+                        if (i != bookedTicketsArr.length - 1) {
+                            return <div>{seat.seatValue}</div>
+                        }
+                    })}</div>
+                    <div id="payment">
+                    <div id="amountDisplay">
+                        {bookedTicketsArr.map((seat, i, bookedTicketsArr)=>{
+                             if (i != bookedTicketsArr.length - 1) {
+                                subTotal = subTotal + seat.price;
+                            }
+                        })}
+                                <div id="SubTotal">SubTotal:{subTotal}</div>
+                    </div>
 
+                    <div>Convenience:{36}</div>
+                    </div>
+                    
+
+                </Box>
+            </Modal>
 
         </>
     )
