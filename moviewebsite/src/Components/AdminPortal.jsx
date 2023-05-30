@@ -42,39 +42,39 @@ export const AdminPortal = () => {
                     <h2>Add Movie</h2>
                     <div id='infoDiv'>
                     <span>
-                        Movie Id: <input type="text" value={movies.Id} name='Id'
+                    <span>Movie Id:</span> <input type="text" value={movies.Id} name='Id'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })} />
                     </span>
                     <span>
-                        Movie Title: <input type="text" value={movies.Title} name='Title'
+                    <span>Movie Title: </span><input type="text" value={movies.Title} name='Title'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })} />
                     </span>
                     <span>
-                        Movie Genre: <input type="text" name='Genre'
+                    <span> Movie Genre:</span> <input type="text" name='Genre'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })} />
                     </span>
                     <span>
-                        Movie languages: <input type="text" name='Languages'
+                    <span> Movie languages: </span><input type="text" name='Languages'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: [e.target.value] })}
                         />
                     </span>
                     <span>
-                        Hero: <input type="text" name='Hero'
+                    <span>Hero: </span> <input type="text" name='Hero'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })}
                         />
                     </span>
                     <span>
-                        Heroine: <input type="text" name='Heroine'
+                    <span>Heroine: </span> <input type="text" name='Heroine'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })}
                         />
                     </span>
                     <span>
-                        Movie Duration: <input type="time" name='Duration'
+                    <span> Movie Duration:</span> <input type="time" name='Duration'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })}
                         />
                     </span>
                     <span>
-                        Movie Url: <input type="url" name='Url'
+                    <span>Movie Url: </span><input type="url" name='Url'
                             onChange={(e) => setMovies({ ...movies, [e.target.name]: e.target.value })}
                         />
                     </span>

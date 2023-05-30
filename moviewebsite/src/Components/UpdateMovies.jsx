@@ -3,6 +3,7 @@ import './AdminPortal.scss';
 import { useNavigate } from 'react-router-dom';
 import { userDetailsStore } from '../App';
 import Header from './Header';
+import './UpdateMovies.scss';
 
 export const UpdateMovies = () => {
 
@@ -115,53 +116,53 @@ export const UpdateMovies = () => {
     return (
         <>
         <Header/>
+        <div id='update'>
         {updateMovies ?
         <div id='movieUpdating'>
         <div id='movie'>
-            
         <h2>Update Movie</h2>
         <div id='infoDiv'>
             <span>
-            Movie Id: <input type="text" value={updateMovies.Id} name='Id'
+           <div id='key'>Movie Id:</div> <input id='value' type="text" value={updateMovies.Id} name='Id'
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })} />
             </span>
             <span>
-            Movie Title: <input type="text"
+           <div id='key'>Movie Title: </div> <input id='value' type="text"
                 value={updateMovies.Title}
                 name='Title'
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })} />
                 </span>
                 <span>
-            Movie Genre: <input type="text" name='Genre'
+           <div id='key'> Movie Genre:</div> <input id='value' type="text" name='Genre'
                 value={updateMovies.Genre}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })} />
                 </span>
                 <span>
-            Movie languages: <input type="text" name='Languages'
+           <div id='key'> Movie languages: </div><input id='value' type="text" name='Languages'
                 value={updateMovies.Languages}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: [e.target.value] })}
             />
             </span>
             <span>
-            Hero: <input type="text" name='Hero'
+            <div id='key'>Hero: </div> <input id='value' type="text" name='Hero'
                 value={updateMovies.Hero}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })}
             />
             </span>
             <span>
-            Heroine: <input type="text" name='Heroine'
+            <div id='key'>Heroine: </div><input id='value'type="text" name='Heroine'
                 value={updateMovies.Heroine}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })}
             />
             </span>
             <span>
-            Movie Duration: <input type="time" name='Duration'
+            <div id='key'> Movie Duration:</div> <input id='value' type="time" name='Duration'
                 value={updateMovies.Duration}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })}
             />
             </span>
             <span>
-            Movie Url: <input type="url" name='Url'
+            <div id='key'>Movie Url: </div> <input id='value' type="url" name='Url'
                 value={updateMovies.Url}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })}
             />
@@ -170,13 +171,13 @@ export const UpdateMovies = () => {
             <p>Available dates:</p>
             <div>
             <span className='dateinput'>
-            From: <input type="date" name='date_from' value={updateMovies.date_from}
+            <div>From:</div> <input id='from' type="date" name='date_from' value={updateMovies.date_from}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [[e.target.name]]: e.target.value })}
             />
             </span>
             <br/>
             <span className='dateinput'>
-            To: <input type="date" name='date_to' value={updateMovies.date_to}
+            <div>To:</div><input id='to' type="date" name='date_to' value={updateMovies.date_to}
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [[e.target.name]]: e.target.value })}
             />
             </span>
@@ -186,34 +187,58 @@ export const UpdateMovies = () => {
         <button id='btn' onClick={() => onUpdateMovieClick()}>Update movie</button>
         </div>
 
-        <div>
-            <button onClick={() => navigate('/MoviesPage')}>Go to moviespage</button>
-        </div>
-    </div> : "No updates available!" }
         
-        <div className='delStatusUpdate'>
+    </div> : "No updates available!" }
+
+    <div className='delStatusUpdate'>
+        <div id='updateDel'>
         <h2>Update Movie</h2>
         {/* <div className='dataDiv'> */}
-        <span>
+        <div id='idFetch'>
             Id to access movie:<input onChange={(e) => setIdToAccess(e.target.value)} />
             <button onClick={() => onFetch()}>Fetch</button>
-        </span>
+        </div>
 
-        <span>
+<div id='fetchedMvDisplay'>
+    
+       {fetchedMovie ? <div><h2>{fetchedMovie[0].Title}</h2>
+    <section><img src={fetchedMovie[0].Url}/></section>
+    Flag<h3>{fetchedMovie[0].Id}</h3>
+     
+      {console.log(fetchedMovie[0].Id)}
+     </div>: "No feteched movies!"} 
+    
+    
+</div>
+        <div id='updateStatus'>
             Update status:
             {/* <input type='text' name='flag' onChange={(e) => setFlagVal(e.target.checked)}  />  */}
             {/* <input type='checkbox' name='flag' onChange={(e) => setFlagVal(e.target.checked)} checked/> False */}
-            <button onClick={()=>setFlagVal(Boolean(" "))}>True</button>
+           <div id='flagBtns'>
+           <button onClick={()=>setFlagVal(Boolean(" "))}>True</button>
             <button onClick={()=>setFlagVal(Boolean(""))}>False</button>
+           </div>
+           
             <button onClick={() => onSetFlagValueClick()}>setFlagValue</button>
 
-        </span>
+        </div>
         {/* {fetchedMovie ? <input type='text' name='isDeleted' value={fetchedMovie[0][0].isDeleted} onChange={(e)=>setUpdateFlagVal(e.target.value)}/> : "no fetched movies" } */}
-        <button onClick={() => onSetUpdatedFlagMovie()}>SetUpdatedFlagMovie</button>
+        <button id='final' onClick={() => onSetUpdatedFlagMovie()}>SetUpdatedFlagMovie</button>
         {/* </div> */}
+        </div>
+        
 
 
     </div>
+        </div>
+        
+        {/* <footer>
+            <div>
+            <button onClick={() => navigate('/MoviesPage')}>Go to moviespage</button>
+        </div>
+        </footer> */}
+        
+        
     </>
     )
 }

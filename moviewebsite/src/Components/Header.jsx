@@ -29,7 +29,7 @@ const Header = () => {
         <div className="homeComponent">
             <header>
                 {/* navigate('/AdminPortal'); */}
-                {(Status == "Padmavathi")?<button id='adminBtn' onClick={()=>{setIsAdminBtn(!isAdminBtn)}}>Admin Dashboard{ isAdminBtn ?<KeyboardArrowDownIcon/>: <KeyboardArrowRightIcon/>}</button>: true }
+                {((Status == "Padmavathi") && getcurrentUserData) ?<button id='adminBtn' onClick={()=>{setIsAdminBtn(!isAdminBtn)}}>Admin Dashboard{ isAdminBtn ?<KeyboardArrowDownIcon/>: <KeyboardArrowRightIcon/>}</button>: true }
                 {isAdminBtn ?  <div id='adminMenu'>
                     <button className='btns' onClick={()=>navigate('/')}>
                         Home

@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import { A, B, C, D, E, F, G, data } from "./assets/Seats";
+import Swal from 'sweetalert2';
 
 const style = {
     position: 'absolute',
@@ -34,7 +35,10 @@ export const MoviesPage = () => {
     // const [changeSelected,setChangeSelected] = useState([])
     const [bookedTicketsArr, setBookedTicketsArr] = useState([]);
     const [isSelectedShow, setIsSelectedShow] = useState(false);
+    const [finalTotal, setFinalTotal] = useState(0);
     let subTotal = 0;
+
+    const swal = new Swal();
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -136,6 +140,7 @@ export const MoviesPage = () => {
             // setSelectedSeats(filterd);
             setSelectedSeats(seatFil);
         }
+        localStorage.setItem("SelectedSeats", JSON.stringify(selectedSeats));
     }
 
     const bookingValidation = (bookedMv, finalSeat) => {
@@ -159,7 +164,7 @@ export const MoviesPage = () => {
         else {
             console.log("please book tickets!")
         }
-
+        localStorage.setItem("BookedTickets", JSON.stringify(bookedTicketsArr));
     }
 
     // const bookingValidation = () => {
@@ -171,6 +176,10 @@ export const MoviesPage = () => {
     //         console.log("please book tickets!")
     //     }
     // }
+
+    const handleClick = () => {
+        swal("Good job!", "You clicked the button!", "success")
+    }
 
 
     return (
@@ -196,11 +205,13 @@ export const MoviesPage = () => {
                                             <section>
                                                 {<img src={movie.Url} />}
                                                 <h2>{movie.Title}</h2>
-                                                <button onClick={() => { handleOpen(); setDisplayMv(movie); }}>Book Now</button>
+                                                <div id="bookingBtn">
+                                                    <button onClick={() => { handleOpen(); setDisplayMv(movie); }}>Book Now</button>
+                                                </div>
 
                                             </section>
                                             {getCurrentUserData.Username == "Padmavathi" ?
-                                                <div>
+                                                <div id="adminBtns">
                                                     <button onClick={() => {
                                                         navigate('/UpdateMovies');
                                                         setUpdateMovies(movie);
@@ -370,7 +381,7 @@ export const MoviesPage = () => {
                     {bookedTicketsArr.map((mv, i, bookedTicketsArr) => {
                         if (i == bookedTicketsArr.length - 1) {
                             console.log(mv);
-                            return <div id='successStmnt'>Your booking is successful for {mv.Title} <TaskAltIcon id='tick'/></div>
+                            return <div id='successStmnt'>Your booking is successful for {mv.Title} <TaskAltIcon id='tick' /></div>
                         }
                     })}
                     <div id="seatsDisplay">Allocated seats are:{bookedTicketsArr.map((seat, i, bookedTicketsArr) => {
@@ -380,22 +391,31 @@ export const MoviesPage = () => {
                         }
                     })}</div>
                     <div id="payment">
-                    <div id="amountDisplay">
-                        {bookedTicketsArr.map((seat, i, bookedTicketsArr)=>{
-                             if (i != bookedTicketsArr.length - 1) {
-                                subTotal = subTotal + seat.price;
-                            }
-                        })}
-                                <div id="SubTotal">SubTotal:{subTotal}</div>
+                        <div id="amountDiv">
+                            <div id="amountDisplay">
+                                {bookedTicketsArr.map((seat, i, bookedTicketsArr) => {
+                                    if (i != bookedTicketsArr.length - 1) {
+                                        subTotal = subTotal + seat.price;
+                                    }
+                                })}
+                                <div className="Total">
+                                    <div>SubTotal:</div>  <div>₹ {subTotal}</div>
+                                </div>
+                            </div>
+                            <div className="Total">
+                                <div>Convenience:</div>  <div>₹ {36}</div>
+                            </div>
+                            
+                        </div>
+                        <hr/>
+                        <div className="Total" id='Total'>
+                                <div>Total:</div>  <div>₹ {(subTotal + 36)}</div>
+                                <button onClick={()=>handleClick()}>Alert</button>
+                            </div>
+                            
                     </div>
-
-                    <div>Convenience:{36}</div>
-                    </div>
-                    
-
                 </Box>
             </Modal>
-
         </>
     )
 }
