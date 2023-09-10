@@ -94,6 +94,10 @@
         display: flex;
     }
 
+    #defaultDiv{
+        width: 50%;
+    }
+
     #theatre {
         width: 50%;
         background-color: rgb(88, 148, 201);
@@ -136,6 +140,20 @@
         justify-content: center;
         align-items: center;
         gap: 3px;
+
+        button{
+            border-radius: 13px 13px 0px 0px;
+            border: none;
+            // background-image: linear-gradient();
+        }
+
+        .selected-seat{
+            background-color: green;
+        }
+    }
+
+    .seatDef{
+        background-color: gray;
     }
 
     #topSeats {
@@ -243,6 +261,11 @@
             }
         }
 
+        .booked-seats{
+            background-color: red;
+        }
+
+
         #movie {
             width: 100%;
             height: 45%;
@@ -254,6 +277,7 @@
                 width: 13rem;
                 height: 13rem;
                 background-color: pink;
+                margin: 1rem;
 
                 img {
                     width: inherit;

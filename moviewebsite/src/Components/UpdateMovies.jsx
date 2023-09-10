@@ -167,7 +167,7 @@ export const UpdateMovies = () => {
                 onChange={(e) => setUpdateMovies({ ...updateMovies, [e.target.name]: e.target.value })}
             />
             </span>
-            <div id='dates'>
+            {/* <div id='dates'>
             <p>Available dates:</p>
             <div>
             <span className='dateinput'>
@@ -182,20 +182,20 @@ export const UpdateMovies = () => {
             />
             </span>
             </div>
-            </div>
+            </div> */}
         </div>
         <button id='btn' onClick={() => onUpdateMovieClick()}>Update movie</button>
         </div>
 
         
     </div> : "No updates available!" }
-
+<div id='vertical'></div>
     <div className='delStatusUpdate'>
         <div id='updateDel'>
-        <h2>Update Movie</h2>
+        <h2>Update Delete Status</h2>
         {/* <div className='dataDiv'> */}
         <div id='idFetch'>
-            Id to access movie:<input onChange={(e) => setIdToAccess(e.target.value)} />
+            <p>Id to access movie:</p><input onChange={(e) => setIdToAccess(e.target.value)} />
             <button onClick={() => onFetch()}>Fetch</button>
         </div>
 
@@ -211,7 +211,7 @@ export const UpdateMovies = () => {
     
 </div>
         <div id='updateStatus'>
-            Update status:
+            <p>Update status:</p>
             {/* <input type='text' name='flag' onChange={(e) => setFlagVal(e.target.checked)}  />  */}
             {/* <input type='checkbox' name='flag' onChange={(e) => setFlagVal(e.target.checked)} checked/> False */}
            <div id='flagBtns'>

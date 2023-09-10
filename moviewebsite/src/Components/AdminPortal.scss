@@ -11,31 +11,37 @@
         width: 100%;
         height: inherit;
         // background-color: antiquewhite;
-        gap: 2rem;
+        gap: .5rem;
 
         #infoDiv{
             width: 30rem;
-            height: 26rem;
-            background-color: aqua;
-            display: flex;
+            height: 30rem;
+            background-color: #BFACE2;
+
+                        display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
         }
 
-        // h2{
-        //     position: absolute;
-        //     top: 8rem;
-        // }
+        h2{
+            font-family: "Kaushan Script", cursive;
+    font-size: 2rem;
+    color: #645CBB
+        }
 
         span{
             display: flex;
             justify-content: space-between;
     width: 80%;
             gap: 1rem;
+            font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 500;
 
             input{
-                width: 11rem;
+                width: 30rem;
+                height: 1.5rem;
             }
 
             .dateinput{
@@ -62,20 +68,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            // background: none;
+          
             border: none;
             font-size: 1.3rem;
             gap: .5rem;
             padding: 6px;
-            color: rgb(3, 121, 132);
-            // position: absolute;
-            // bottom: 3rem;
+            color: white;
+            height: 2.5rem;
             width: 10rem;
+            background-color: #BFACE2;
         }
 
         #btn:hover{
-            background-color: rgb(3, 121, 132);
-            color: white;
+            background-color: #645CBB;
+            
         }
     }
 

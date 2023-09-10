@@ -1,0 +1,88 @@
+{
+    Movie Id: 1
+    Movie Title: Hari Hara Veera Mallu
+    Movie Genre: Action, Drama
+    Movie languages: Telugu, Hindi, Tamil
+    Hero: Pawan Kalyan
+    Heroine: Nidhhi Agerwal
+    Movie Duration: 2hr 30min
+    Movie Url: 
+    https://i.gadgets360cdn.com/products/large/Hari-Hara-Veera-Mallu4-640x800-1674737278625.jpg?downsize=*:420
+},
+{
+    Movie Id: 2
+    Movie Title: Adipurush
+    Movie Genre: Action, Drama
+    Movie languages: Hindi, Telugu
+    Hero: Prabhas
+    Heroine:  Kriti Sanon
+    Movie Duration: 2hr 30min
+    Movie Url: 
+    https://i.gadgets360cdn.com/products/large/2-1-640x800-1684304186589.jpg?downsize=*:420
+},
+{
+    Movie Id: 3
+    Movie Title: SatyaPrem Ki Katha
+    Movie Genre: Drama, Romance
+    Movie languages: Hindi, Telugu
+    Hero: Kartik Aaryan
+    Heroine:  Kiara Advani
+    Movie Duration: 2hr 30min
+    Movie Url: 
+    https://www.bollywoodhungama.com/wp-content/uploads/2023/06/IMG-20230604-WA0004.jpg
+},
+{
+    Movie Id: 4
+    Movie Title: Bichagadu 2
+    Movie Genre: Action, Thriller
+    Movie languages: Telugu, Tamil
+    Hero: Vijay Antony 
+    Heroine: Kavya Thapar
+    Movie Duration: 2h 28min
+    Movie Url: 
+    https://i.gadgets360cdn.com/products/large/11-8000x12000-1684220663776.jpg?downsize=*:420
+}
+{
+    Movie Id: 5
+    Movie Title: Custody
+    Movie Genre: Drama, Action
+    Movie languages: Telugu, Tamil
+    Hero: Naga Chaitanya Akkineni  
+    Heroine: Krithi Shetty
+    Movie Duration: 2h 28min
+    Movie Url: 
+    https://i.gadgets360cdn.com/products/large/10-533x800-1681209877380.jpg?downsize=*:420
+},
+{
+    Movie Id: 6
+    Movie Title: Kushi
+    Movie Genre: Drama, Romance
+    Movie languages: Telugu, Kannada
+    Hero: Vijay Deverakonda
+    Heroine: Samantha Ruth Prabhu
+    Movie Duration: 2h 28min
+    Movie Url: 
+    https://images.cinemaexpress.com/uploads/user/ckeditor_images/article/2023/4/28/670f1952-92db-4c01-9b67-abd7832a2b941.jpg
+},
+{
+    Movie Id: 7
+    Movie Title: Bhola Shankar
+    Movie Genre: Action, Drama
+    Movie languages: Telugu, Tamil
+    Hero: Chiranjeevi 
+    Heroine: Keerthy Suresh
+    Movie Duration: 2h 28min
+    Movie Url: 
+    https://assets.gadgets360cdn.com/pricee/assets/product/202302/Bhola-Shankar_1676023702.jpg
+},
+{
+    Movie Id: 8
+    Movie Title: Salaar
+    Movie Genre: Action, Drama, Thriller
+    Movie languages: Kannada, Telugu
+    Hero: Prabhas
+    Heroine: Shruti Haasan
+    Movie Duration: 2h 28min
+    Movie Url: 
+    https://m.media-amazon.com/images/M/MV5BMjQ3MzhlNzQtZGEyOC00OWI2LWI5NDAtNTlmMTUwMGI3ODM3XkEyXkFqcGdeQXVyNTgxODY5ODI@._V1_.jpg
+}

@@ -63,15 +63,15 @@ export const SignUp = () => {
   const userarr = userDetailsStore(state => state.users)
   const setUserArr = userDetailsStore(state => state.updateUsers)
 
-  const Validate_Username = () => {
+  const validateUsername = () => {
     if (un.match("^[A-Za-z][A-Za-z]{4,29}$")) {
-      
       console.log(un);
-      return <h4>Qualified</h4>;
+      return true;
+      // return <h4>Qualified</h4>;
     }
     else{
-      // alert("Invalid Username!");
-      return <h4>User exists</h4>;
+      console.log("Invalid Username!");
+      // return <h4>User exists</h4>;
     }
   }
 
@@ -141,12 +141,10 @@ export const SignUp = () => {
       <main>
       <form onSubmit={onSignUpClick}>
       <h1>SignUp</h1>
-
         <span>
-       <Person2Icon/><input onChange={(e) => setUn(e.target.value)} placeholder='Enter your fullname!' required />
+       <Person2Icon/><input onChange={(e) => setUn(e.target.value)} onBlur={() => validateUsername()} placeholder='Enter your fullname!' required />
         </span>
-       <Validate_Username/>
-
+       {/* <Validate_Username/> */}
         <span>
         <EmailRoundedIcon/><input type='email' onChange={(e) => setEmail(e.target.value)} onBlur={() => validateEmailId()} placeholder='Enter your Email Id!' required />
         </span>
@@ -161,10 +159,10 @@ export const SignUp = () => {
         </span>
         <div id='gen'>
         <div className='genderDiv' >
-        <input className='gender' type="radio" name="gender" value="male" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /><p>Female</p> 
+        <input className='gender' type="radio" name="gender" value="female" checked={gender == 'female'} onChange={(e) => onGenderSelect(e)} required /><p>Female</p> 
         </div>
         <div className='genderDiv'>
-        <input className='gender' type="radio" name="gender" value="female" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /><p>Male</p>
+        <input className='gender' type="radio" name="gender" value="male" checked={gender == 'male'} onChange={(e) => onGenderSelect(e)} required /><p>Male</p>
         </div>
         </div>
        <div className='check'>
@@ -172,11 +170,11 @@ export const SignUp = () => {
        </div>
        <div id='signupdiv'>
         <div id='btnDiv'>
-        <button id='btn' type='submit' >SignUp<PersonAddAlt1Icon id='icon'/></button>
+        <button id='btn' type='submit' >SignUp<PersonAddAlt1Icon /></button>
         </div>
        </div >
        <div id='routeLink'>
-       Already a User? <button id='linkBtn' onClick={()=>navigate('/Login')}>Go and login!<ArrowRightIcon/></button>
+       Already a User? <button id='linkBtn' onClick={()=>navigate('/Login')}>Go and login!<ArrowRightIcon /></button>
        </div>
       </form>
      

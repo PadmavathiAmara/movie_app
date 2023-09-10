@@ -81,7 +81,7 @@ export const AdminPortal = () => {
                     
                     
                         {/* <div id="text" >Available dates:</div> */}
-                        <div id='dates'>
+                        {/* <div id='dates'>
 
                         <p>Available dates:</p>
                         <div>
@@ -98,7 +98,7 @@ export const AdminPortal = () => {
                             />
                         </span>
                         </div>
-                    </div>
+                    </div> */}
 </div>
                     <button id='btn' onClick={() => onAddMovieClick()}>Add movie</button>
 

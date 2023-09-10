@@ -39,7 +39,8 @@ export const Login = () => {
                 }
             }
             else{
-                alert("Wrong username");
+                // alert("Wrong username");
+                navigate('/Login');
             }
         });
         setAccUser(foundUser);

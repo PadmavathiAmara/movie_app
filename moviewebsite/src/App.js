@@ -37,6 +37,14 @@ export const userDetailsStore = create((set) => (
 
 const App = () => {
 
+// if(localStorage.confirmedSeats){
+//   let localSeats=JSON.parse(localStorage.confirmedSeats)
+// }
+// else{
+//   localStorage.confirmedSeats='';
+// }
+
+
   return (
     <div className="App">
       {/* {window.location.pathname !== '/SignUp' || window.location.pathname !== '/Login' && <Header/>} */}

@@ -3,7 +3,8 @@ main{
     height: calc(100vh - 96px);
     // position: relative;
 
-    background-image: url('./assets/homebgfinal.jpg');
+    // background-image: url('./assets/homebgfinal.jpg');
+    background-image: url('./assets/popcorn.webp');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -25,13 +26,16 @@ main{
     font-size: 2rem;
     color: #2a539c;
 
-
+            h1{
+                color: #645CBB;
+               
+            }
     
 
     h2{
         font-size: 2rem;
                 width: 31rem;
-                color: #3c5bd1;
+                color: #645CBB;
     }
         }
     

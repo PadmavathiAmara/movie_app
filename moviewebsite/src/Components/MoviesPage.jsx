@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { userDetailsStore } from "../App";
 import './MoviesPage.scss';
-import Home from "./Home";
 import Header from "./Header";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
-import { A, B, C, D, E, F, G, data } from "./assets/Seats";
+import { data } from "./assets/Seats";
 import Swal from 'sweetalert2';
 
 const style = {
@@ -34,11 +33,15 @@ export const MoviesPage = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     // const [changeSelected,setChangeSelected] = useState([])
     const [bookedTicketsArr, setBookedTicketsArr] = useState([]);
-    const [isSelectedShow, setIsSelectedShow] = useState(false);
+    const [isSelectedShow, setIsSelectedShow] = useState(true);
+    const [showtype, setShowtype] = useState("Morning Show");
     const [finalTotal, setFinalTotal] = useState(0);
+    const [finalarr, setFinalarr] = useState([]);
     let subTotal = 0;
 
-    const swal = new Swal();
+    var color = 'gray';
+
+    // const swal = new Swal();
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -50,7 +53,8 @@ export const MoviesPage = () => {
         console.log(selectedSeats);
         console.log(bookedTicketsArr);
         console.log(isSelectedShow);
-    }, [selectedSeats, bookedTicketsArr, isSelectedShow])
+        console.log(showtype);
+    }, [selectedSeats, bookedTicketsArr, isSelectedShow, showtype])
 
     let listOfMovies = JSON.parse(localStorage.getItem("MoviesList"));
 
@@ -74,32 +78,6 @@ export const MoviesPage = () => {
 
     }
 
-    // let data=[];
-    // for(let i=1;i<=30;i++){
-    //     let test;
-    //     if(i>=1 && i<=10){
-    //         test="A"+i
-    //     temp= "isDeleted: false";
-    //     }
-    //      if(i>=11 && i<=20){
-
-    //                 test="B"+(i-10)
-    //                 temp= "isDeleted: false";
-
-    //     } if(i>=21 && i<=30){
-    //                 test="C"+(i-20)
-    // temp= "isDeleted: false";
-    //     }
-    //     data.push(test,temp)
-    // }
-    // console.log(data)
-
-    // data.map((s,i)=>{
-    //     if(i<10){
-    //         return <button>{s}</button>
-
-    //     }
-    // })
 
     const onSelectedSeats = (seatNo) => {
         console.log(seatNo);
@@ -108,6 +86,8 @@ export const MoviesPage = () => {
         if (selectedSeats.length < 4) {
             if (seatNo.isSelected == true) {
                 console.log(seatNo);
+                color = 'green'
+                console.log("green");
                 setSelectedSeats([...selectedSeats, seatNo])
             } else {
                 console.log(seatNo);
@@ -122,25 +102,30 @@ export const MoviesPage = () => {
         else {
             seatNo.isSelected = !seatNo.isSelected;
             console.log(seatNo);
-            let seatFil = selectedSeats.filter((s) => {
-                seatNo.isSelected = !seatNo.isSelected;
-                console.log(seatNo);
-                if (s.isSelected != false) {
-                    return s;
-                }
-            })
-            console.log(seatFil);
-            // let filterd = seatFil.filter((f)=>{
-            //     if(f.seatValue == seatNo.seatValue){
-            //         seatNo.isSelected = false;
-            //         return seatNo;
+            // let seatFil = selectedSeats.filter((s) => {
+            //     seatNo.isSelected = !seatNo.isSelected;
+            //     console.log(seatNo);
+            //     if (s.isSelected != false) {
+            //         return s;
             //     }
             // })
-            // console.log(filterd);
-            // setSelectedSeats(filterd);
-            setSelectedSeats(seatFil);
+            // console.log(seatFil);
+            // // let filterd = seatFil.filter((f)=>{
+            // //     if(f.seatValue == seatNo.seatValue){
+            // //         seatNo.isSelected = false;
+            // //         return seatNo;
+            // //     }
+            // // })
+            // // console.log(filterd);
+            // // setSelectedSeats(filterd);
+            // setSelectedSeats(seatNo);
         }
+
         localStorage.setItem("SelectedSeats", JSON.stringify(selectedSeats));
+        // if(selectedSeats.includes(seatNo)){
+        //     console.log("green");
+        //    return color ='green';
+        // }
     }
 
     const bookingValidation = (bookedMv, finalSeat) => {
@@ -155,32 +140,38 @@ export const MoviesPage = () => {
                 console.log(seat);
             })
         }
+
         if (isSelectedShow && selectedSeats.length > 0) {
             handleOpenChild();
             handleClose();
-            setBookedTicketsArr(finalSeat.concat(bookedMv));
+            // setFinalarr(finalSeat.concat(bookedMv)); 
+            setBookedTicketsArr(finalSeat.concat(bookedMv, { showtype }));
+            localStorage.setItem("BookedTickets", JSON.stringify(bookedTicketsArr));
 
         }
         else {
             console.log("please book tickets!")
         }
-        localStorage.setItem("BookedTickets", JSON.stringify(bookedTicketsArr));
+        // localStorage.setItem("BookedTickets", JSON.stringify(bookedTicketsArr));
+        // if(bookedTicketsArr.includes(finalSeat)){
+        //     console.log(finalSeat);
+        //     finalSeat.seatValue.disabled = true;
+        // }
     }
 
-    // const bookingValidation = () => {
-    //     if(isSelectedShow && selectedSeats.length > 0){
-    //         handleOpenChild(); 
-    //         handleClose();
-    //     }
-    //     else{
-    //         console.log("please book tickets!")
-    //     }
-    // }
+    const blocking = (blocked) => {
+        console.log(blocked);
+        {
+            selectedSeats.map((seat, i) => {
+                console.log("blocked");
+                // if (i != (bookedTicketsArr.length - 1) && i != (bookedTicketsArr.length - 2)) {
+                seat.isDisabled = true;
+                // }
+                console.log(blocked);
 
-    const handleClick = () => {
-        swal("Good job!", "You clicked the button!", "success")
+            })
+        }
     }
-
 
     return (
         <>
@@ -228,7 +219,6 @@ export const MoviesPage = () => {
                 </div>
             </div>
             <div>
-
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -236,17 +226,42 @@ export const MoviesPage = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-
                         <div id="mainDiv">
-                            <div id="theatre">
+                            {showtype == "Morning Show" ? <div id="theatre">
                                 <div id="screen">screen</div>
                                 <div id="seats">
                                     <div className="firstSec">
                                         {
                                             data.map((s, i) => {
                                                 if (i < 10) {
-                                                    return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
                                                 }
                                             })
                                         }
@@ -255,8 +270,35 @@ export const MoviesPage = () => {
                                         {
                                             data.map((s, i) => {
                                                 if (i >= 10 && i < 20) {
-                                                    return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
                                                 }
                                             })
                                         }
@@ -266,81 +308,983 @@ export const MoviesPage = () => {
                                     <div className="firstSec">
                                         {data.map((s, i) => {
                                             if (i >= 20 && i < 30) {
-                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                return (
+                                                    <>
+                                                        {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                            if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            }
+                                                        })}
+                                                        {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                        {
+                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                onClick={() => {
+                                                                    onSelectedSeats(s);
+                                                                }} >{s.seatValue}</button>
+                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                        }
+                                                    </>
+                                                )
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
                                         {data.map((s, i) => {
                                             if (i >= 30 && i < 40) {
-                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                return (
+                                                    <>
+                                                        {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                            if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            }
+                                                        })}
+                                                        {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                        {
+                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                onClick={() => {
+                                                                    onSelectedSeats(s);
+                                                                }} >{s.seatValue}</button>
+                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                        }
+                                                    </>
+                                                )
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
                                         {data.map((s, i) => {
                                             if (i >= 40 && i < 50) {
-                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                return (
+                                                    <>
+                                                        {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                            if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            }
+                                                        })}
+                                                        {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                        {
+                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                onClick={() => {
+                                                                    onSelectedSeats(s);
+                                                                }} >{s.seatValue}</button>
+                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                        }
+                                                    </>
+                                                )
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
                                         {data.map((s, i) => {
                                             if (i >= 50 && i < 60) {
-                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
-
+                                                return (
+                                                    <>
+                                                        {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                            if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            }
+                                                        })}
+                                                        {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                        {
+                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                onClick={() => {
+                                                                    onSelectedSeats(s);
+                                                                }} >{s.seatValue}</button>
+                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                        }
+                                                    </>
+                                                )
                                             }
                                         })}
                                     </div>
                                     <div className="firstSec">
                                         {data.map((s, i) => {
                                             if (i >= 60 && i < 65) {
-                                                return <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button>
+                                                return (
+                                                    <>
+                                                        {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                            if (i == bookedTicketsArr.length - 1 && showtype == "Morning Show") {
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            }
+                                                        })}
+                                                        {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                        {
+                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                onClick={() => {
+                                                                    onSelectedSeats(s);
+                                                                }} >{s.seatValue}</button>
+                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                        }
+                                                    </>
+                                                )
                                             }
                                         })}
                                     </div>
-
                                 </div>
-                            </div>
+                            </div> : 
+                                showtype == "Matinee Show" ? <div id="theatre">
+                                    <div id="screen">screen</div>
+                                    <div id="seats">
+                                        <div className="firstSec">
+                                            {
+                                                data.map((s, i) => {
+                                                    if (i < 10) {
+                                                        return (
+                                                            <>
+                                                                {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                    if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                        {
+                                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                                    onClick={() => {
+                                                                                        onSelectedSeats(s);
+                                                                                    }} >{s.seatValue}</button>
+                                                                        }
+                                                                    }
+                                                                })}
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            </>
+                                                        )
+                                                    }
+                                                })
+                                            }
+                                        </div>
+                                        <div className="firstSec">
+                                            {
+                                                data.map((s, i) => {
+                                                    if (i >= 10 && i < 20) {
+                                                        return (
+                                                            <>
+                                                                {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                    if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                        {
+                                                                            !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                                : <button disabled style={{ backgroundColor: "red" }}
+                                                                                    onClick={() => {
+                                                                                        onSelectedSeats(s);
+                                                                                    }} >{s.seatValue}</button>
+                                                                        }
+                                                                    }
+                                                                })}
+                                                                {
+                                                                    !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                                        : <button disabled style={{ backgroundColor: "red" }}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                }
+                                                            </>
+                                                        )
+                                                    }
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                    <div id="topSeats">
+                                        <div className="firstSec">
+                                            {data.map((s, i) => {
+                                                if (i >= 20 && i < 30) {
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                        <div className="firstSec">
+                                            {data.map((s, i) => {
+                                                if (i >= 30 && i < 40) {
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                        <div className="firstSec">
+                                            {data.map((s, i) => {
+                                                if (i >= 40 && i < 50) {
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                        <div className="firstSec">
+                                            {data.map((s, i) => {
+                                                if (i >= 50 && i < 60) {
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                        <div className="firstSec">
+                                            {data.map((s, i) => {
+                                                if (i >= 60 && i < 65) {
+                                                    return (
+                                                        <>
+                                                            {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                                                if (i == bookedTicketsArr.length - 1 && showtype == "Matinee Show") {
+                                                                    {
+                                                                        !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                            onClick={() => {
+                                                                                onSelectedSeats(s);
+                                                                            }} >{s.seatValue}</button>
+                                                                            : <button disabled style={{ backgroundColor: "red" }}
+                                                                                onClick={() => {
+                                                                                    onSelectedSeats(s);
+                                                                                }} >{s.seatValue}</button>
+                                                                    }
+                                                                }
+                                                            })}
+                                                            {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                                            {
+                                                                !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                                                    onClick={() => {
+                                                                        onSelectedSeats(s);
+                                                                    }} >{s.seatValue}</button>
+                                                                    : <button disabled style={{ backgroundColor: "red" }}
+                                                                        onClick={() => {
+                                                                            onSelectedSeats(s);
+                                                                        }} >{s.seatValue}</button>
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                    </div>
+                                </div> : true
+                                //     showtype == "First Show" ? <div id="theatre">
+                                //         <div id="screen">screen</div>
+                                //         <div id="seats">
+                                //             <div className="firstSec">
+                                //                 {
+                                //                     data.map((s, i) => {
+                                //                         if (i < 10) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })
+                                //                 }
+                                //             </div>
+                                //             <div className="firstSec">
+                                //                 {
+                                //                     data.map((s, i) => {
+                                //                         if (i >= 10 && i < 20) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })
+                                //                 }
+                                //             </div>
+                                //         </div>
+                                //         <div id="topSeats">
+                                //             <div className="firstSec">
+                                //                 {data.map((s, i) => {
+                                //                     if (i >= 20 && i < 30) {
+                                //                         return (
+                                //                             <>
+                                //                                 {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                     if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     }
+                                //                                 })}
+                                //                                 {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                 {
+                                //                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                         onClick={() => {
+                                //                                             onSelectedSeats(s);
+                                //                                         }} >{s.seatValue}</button>
+                                //                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                 }
+                                //                             </>
+                                //                         )
+                                //                     }
+                                //                 })}
+                                //             </div>
+                                //             <div className="firstSec">
+                                //                 {data.map((s, i) => {
+                                //                     if (i >= 30 && i < 40) {
+                                //                         return (
+                                //                             <>
+                                //                                 {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                     if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     }
+                                //                                 })}
+                                //                                 {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                 {
+                                //                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                         onClick={() => {
+                                //                                             onSelectedSeats(s);
+                                //                                         }} >{s.seatValue}</button>
+                                //                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                 }
+
+                                //                             </>
+                                //                         )
+                                //                     }
+                                //                 })}
+                                //             </div>
+                                //             <div className="firstSec">
+                                //                 {data.map((s, i) => {
+                                //                     if (i >= 40 && i < 50) {
+                                //                         return (
+                                //                             <>
+                                //                                 {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                     if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     }
+                                //                                 })}
+                                //                                 {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                 {
+                                //                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                         onClick={() => {
+                                //                                             onSelectedSeats(s);
+                                //                                         }} >{s.seatValue}</button>
+                                //                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                 }
+                                //                             </>
+                                //                         )
+                                //                     }
+                                //                 })}
+                                //             </div>
+                                //             <div className="firstSec">
+                                //                 {data.map((s, i) => {
+                                //                     if (i >= 50 && i < 60) {
+                                //                         return (
+                                //                             <>
+                                //                                 {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                     if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     }
+                                //                                 })}
+                                //                                 {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                 {
+                                //                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                         onClick={() => {
+                                //                                             onSelectedSeats(s);
+                                //                                         }} >{s.seatValue}</button>
+                                //                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                 }
+                                //                             </>
+                                //                         )
+                                //                     }
+                                //                 })}
+                                //             </div>
+                                //             <div className="firstSec">
+                                //                 {data.map((s, i) => {
+                                //                     if (i >= 60 && i < 65) {
+                                //                         return (
+                                //                             <>
+                                //                                 {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                     if (i == bookedTicketsArr.length - 1 && showtype == "First Show") {
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     }
+                                //                                 })}
+                                //                                 {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                 {
+                                //                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                         onClick={() => {
+                                //                                             onSelectedSeats(s);
+                                //                                         }} >{s.seatValue}</button>
+                                //                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                 }
+                                //                             </>
+                                //                         )
+                                //                     }
+                                //                 })}
+                                //             </div>
+                                //         </div>
+                                //     </div> :
+                                //         <div id="theatre">
+                                //             <div id="screen">screen</div>
+                                //             <div id="seats">
+                                //                 <div className="firstSec">
+                                //                     {
+                                //                         data.map((s, i) => {
+                                //                             if (i < 10) {
+                                //                                 return (
+                                //                                     <>
+                                //                                         {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                             if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                                 {
+                                //                                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                             onClick={() => {
+                                //                                                                 onSelectedSeats(s);
+                                //                                                             }} >{s.seatValue}</button>
+                                //                                                 }
+                                //                                             }
+                                //                                         })}
+                                //                                         {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+                                //                                     </>
+                                //                                 )
+                                //                                 // className={`${selectedSeats.includes(s) ? "selected-seat" :"" }`}
+                                //                             }
+                                //                         })
+                                //                     }
+                                //                 </div>
+                                //                 <div className="firstSec">
+                                //                     {
+                                //                         data.map((s, i) => {
+                                //                             if (i >= 10 && i < 20) {
+                                //                                 return (
+                                //                                     <>
+                                //                                         {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                             if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                                 {
+                                //                                                     !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                                         : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                             onClick={() => {
+                                //                                                                 onSelectedSeats(s);
+                                //                                                             }} >{s.seatValue}</button>
+                                //                                                 }
+                                //                                             }
+                                //                                         })}
+                                //                                         {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                         {
+                                //                                             !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                                 : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                         }
+
+                                //                                     </>
+                                //                                 )
+                                //                             }
+                                //                         })
+                                //                     }
+                                //                 </div>
+                                //             </div>
+                                //             <div id="topSeats">
+                                //                 <div className="firstSec">
+                                //                     {data.map((s, i) => {
+                                //                         if (i >= 20 && i < 30) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {/* <button onClick={() => { onSelectedSeats(s) }}>{s.seatValue}</button> */}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })}
+                                //                 </div>
+                                //                 <div className="firstSec">
+                                //                     {data.map((s, i) => {
+                                //                         if (i >= 30 && i < 40) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })}
+                                //                 </div>
+                                //                 <div className="firstSec">
+                                //                     {data.map((s, i) => {
+                                //                         if (i >= 40 && i < 50) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })}
+                                //                 </div>
+                                //                 <div className="firstSec">
+                                //                     {data.map((s, i) => {
+                                //                         if (i >= 50 && i < 60) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })}
+                                //                 </div>
+                                //                 <div className="firstSec">
+                                //                     {data.map((s, i) => {
+                                //                         if (i >= 60 && i < 65) {
+                                //                             return (
+                                //                                 <>
+                                //                                     {bookedTicketsArr.map((m, i, bookedTicketsArr) => {
+                                //                                         if (i == bookedTicketsArr.length - 1 && showtype == "Second Show") {
+                                //                                             {
+                                //                                                 !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                                     onClick={() => {
+                                //                                                         onSelectedSeats(s);
+                                //                                                     }} >{s.seatValue}</button>
+                                //                                                     : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                         onClick={() => {
+                                //                                                             onSelectedSeats(s);
+                                //                                                         }} >{s.seatValue}</button>
+                                //                                             }
+                                //                                         }
+                                //                                     })}
+                                //                                     {
+                                //                                         !s.isDisabled ? <button className={`seatDef ${s.isSelected && 'selected-seat'}`}
+                                //                                             onClick={() => {
+                                //                                                 onSelectedSeats(s);
+                                //                                             }} >{s.seatValue}</button>
+                                //                                             : <button disabled style={{ backgroundColor: "red" }}
+                                //                                                 onClick={() => {
+                                //                                                     onSelectedSeats(s);
+                                //                                                 }} >{s.seatValue}</button>
+                                //                                     }
+                                //                                 </>
+                                //                             )
+                                //                         }
+                                //                     })}
+                                //                 </div>
+                                //             </div>
+                                //         </div>
+                            }
+                            {/* <div id="defaultDiv">select show time</div> */}
                             <div id='leftpart'>
-                                <h2 id='heading'>Multiplex Theatre Showing Screen</h2>
+                                <h2 id='heading'>Multiplex Theatre Screen</h2>
                                 <div id="movie">
                                     {<div id="mvImg"><img src={displayMv.Url} /></div>}
                                     <div id="movieInfo">
-                                        <h2>{displayMv.Genre}</h2>
+                                        {(displayMv.Genre) ? <>{displayMv.Genre.map((genre) => <h2>{genre}</h2>)}</> : true}
+                                        {/* <>{displayMv.Genre.map((genre) => <h2>{genre}</h2>)}</> */}
                                         {(displayMv.Languages) ?
                                             <>{displayMv.Languages.map((lang) => <div>{lang}</div>)}</> : true}
                                         <h2>{displayMv.Hero}</h2>
                                         <h2>{displayMv.heroine}</h2>
                                         <h2>{displayMv.Duration}</h2>
                                     </div>
-
                                 </div>
                                 <div id="tickets">
                                     <div id="ticketsSec">
                                         <span className="eachSec"><div className="key">Movie:</div><div className="value">{displayMv.Title}</div></span>
-                                        <span className="eachSec"><div className="key">Time:</div> <select onChange={() => setIsSelectedShow(true)} className="value">
-                                            <option value="Select show time">Select show time!</option>
-                                            <option value="Morning Show(10:00 AM to 12:30 PM)">Morning Show(10:00 AM to 12:30 PM)</option>
-                                            <option value="Matinee Show(1:00 PM to 3:30 PM)">Matinee Show(1:00 PM to 3:30 PM)</option>
-                                            <option value="First Show(4:00 PM to 6:30 PM)">First Show(4:00 PM to 6:30 PM)</option>
-                                            <option value="Second Show(7:00 PM to 9:30 PM)">Second Show(7:00 PM to 9:30 PM)</option>
-
-                                        </select></span>
+                                        <span className="eachSec"><div className="key">Time:</div>
+                                            <select className="value" onChange={(e) => setShowtype(e.target.value)}>
+                                                {/* <option>Please select show time!</option> */}
+                                                <option value="Morning Show" >Morning Show(10:00 AM to 12:30 PM)</option>
+                                                <option value="Matinee Show" >Matinee Show(1:00 PM to 3:30 PM)</option>
+                                                <option value="First Show">First Show(4:00 PM to 6:30 PM)</option>
+                                                <option value="Second Show" >Second Show(7:00 PM to 9:30 PM)</option>
+                                            </select></span>
                                         {/* <span>Tickets: <span>
                                             {selectedSeats.length}
                                         </span></span> */}
-
                                         <span className="eachSec"><div className="key">Seats:</div> <div id="showSeats" className="value">
                                             {selectedSeats ?
                                                 selectedSeats.length == 1 ?
                                                     <span>{selectedSeats[0].seatValue},</span> :
                                                     selectedSeats.map((seat) => {
                                                         return (
-                                                            <span>{seat.seatValue},</span>
+                                                            <>
+                                                                {
+                                                                    !seat.isDisabled ?
+                                                                        <span>{seat.seatValue},</span>
+                                                                        : true
+                                                                }
+                                                            </>
                                                         )
                                                     })
                                                 : true}
@@ -350,7 +1294,8 @@ export const MoviesPage = () => {
 
                                     <button id='book' onClick={() => {
                                         // onBooked(displayMv, selectedSeats); 
-                                        bookingValidation(displayMv, selectedSeats)
+                                        bookingValidation(displayMv, selectedSeats, showtype);
+                                        blocking(selectedSeats);
                                     }}>Book Now!</button>
 
                                     <div id="clrBtns">
@@ -394,7 +1339,8 @@ export const MoviesPage = () => {
                         <div id="amountDiv">
                             <div id="amountDisplay">
                                 {bookedTicketsArr.map((seat, i, bookedTicketsArr) => {
-                                    if (i != bookedTicketsArr.length - 1) {
+                                    console.log(bookedTicketsArr.length - 2);
+                                    if (i != (bookedTicketsArr.length - 1) && i != (bookedTicketsArr.length - 2)) {
                                         subTotal = subTotal + seat.price;
                                     }
                                 })}
@@ -405,14 +1351,14 @@ export const MoviesPage = () => {
                             <div className="Total">
                                 <div>Convenience:</div>  <div>₹ {36}</div>
                             </div>
-                            
+
                         </div>
-                        <hr/>
+                        <hr />
                         <div className="Total" id='Total'>
-                                <div>Total:</div>  <div>₹ {(subTotal + 36)}</div>
-                                <button onClick={()=>handleClick()}>Alert</button>
-                            </div>
-                            
+                            <div>Total:</div>  <div>₹ {(subTotal + 36)}</div>
+                            {/* <button onClick={()=>handleClick()}>Alert</button> */}
+                        </div>
+
                     </div>
                 </Box>
             </Modal>
